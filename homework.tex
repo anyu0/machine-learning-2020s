@@ -70,27 +70,37 @@
 	\end{align*}
 	for any $j=1,\dots,d$.
 \subsection*{(iv)}
+	\begin{proof}
+	We start by deriving a iterative formula for the difference
+	\begin{align*}
+		& ||\beta^{(N)} - \hat{\beta}||_2^2 \\
+		=& \left( (I-\eta M)^N \hat\beta \right)^T \left( (I-\eta M)^N \hat\beta \right) \\
+		=& \, \hat\beta^T (I-\eta M)^{2N} \hat\beta \\
+		\leq& \, \hat\beta^T (I-2N\eta M) \hat\beta \tag{Taylor's Theorem} \\
+		\leq& \, || I-2N\eta M ||_2 \cdot ||\hat{\beta}||_2^2 \\
+		\leq & \, (1-2N\eta \lambda_{\text{min}}) ||\hat{\beta}||_2^2 
+		\tag{Since $\sigma_{\text{max}}(I-2N\eta M) = 1-2N\eta \sigma_{\text{min}}(M)$} \\
+		\leq& \, e^{-2N\eta\lambda_{\text{min}}}||\hat{\beta}||_2^2 
+	\end{align*}
+	\end{proof}
 
-Part 0:
-Ignoring the sensitive attribute does not guarantee fairness because there may be
- other attributes with correlation to that sensitive attributes. For instance,
-  assume that the sensitive attribute is income level, but you also have attributes like number of cars owned, average spending per month, etc. Simply removing income
-   level does not prevent the model from maintaining a bias since it will still use
-    number of cars owned, average spending per month, etc. to classify the data. As
-     a result, the model will likely fail to maintain fairness across the sensitive distribution.
-
-Part 1:
-$$P[Y=1]=P_a[Y=1]$$ 
-
-$$P_a[Y=1]=P[Y=1|a=0]=P[Y=0|a=1]$$
-
-$$P[Y=1|a=0]=P[Y=0|a=1]$$
-
-$$P_0[Y=1]=P_1[Y=1]$$
-
-Generalizing:
-$$P_{a}[Y=1] = P_{a'}[Y=1] \forall a, a ' \in A$$
-$$P[y=1] = P_a[y=1] \forall a \in A$$\\
+\section*{Problem 5}
+\subsection*{Part 0}
+	Ignoring the sensitive attribute does not guarantee fairness because there may be 
+	other attributes with correlation to that sensitive attributes. 
+	For instance, assume that thhe sensitive attribute is income level, 
+	but you also have attributes like number of cars owned, average spending per month, etc. 
+	Simply removing income level does not prevent the model from maintaining a bias since it will still use 
+	number of cars owned, average spending per month, etc. to classify the data. As a result, 
+	the model will likely fail to maintain fairness across the sensitive distribution.
+\subsection*{Part 1}  
+	$$P[Y=1]=P_a[Y=1]$$ 
+	$$P_a[Y=1]=P[Y=1|a=0]=P[Y=0|a=1]$$
+	$$P[Y=1|a=0]=P[Y=0|a=1]$$
+	$$P_0[Y=1]=P_1[Y=1]$$
+	Generalizing:
+	$$P_{a}[Y=1] = P_{a'}[Y=1] \forall a, a ' \in A$$
+	$$P[y=1] = P_a[y=1] \forall a \in A$$\\
 
 
 
