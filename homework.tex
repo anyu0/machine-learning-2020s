@@ -39,6 +39,22 @@
 		&= \mathbb{P}[ X=t | Y=y_2 ] \mathbb{P}[ Y=y_2 ]
 	\end{align*}
 \subsection*{(iii)}
+	Let the distribution of $\mathbb{P}[X|Y=y_1]$ be $\mathcal{N}(\mu_1,\sigma_1^2)$, 
+	and the distribution of $\mathbb{P}[X|Y=y_2]$ be $\mathcal{N}(\mu_2,\sigma_2^2)$.
+	By Bayesian Decision Theory, the Bayes error is the overlapped area under $\mathcal{N}(\mu_1,\sigma_1^2)$
+	and $\mathcal{N}(\mu_2,\sigma_2^2)$. \\
+	Example in which $f_t$ achieves Bayesian error rate:
+	\begin{align*}
+		\mathbb{P}[X|Y=y_1] &\sim \mathcal{N}(-1, 1)\\
+		\mathbb{P}[X|Y=y_2] &\sim \mathcal{N}(1, 1) \\
+		t&=0
+	\end{align*}
+	Example in which $\forall t\in \mathbb{R}$, $f_t$ does not achieve Bayesian error rate:
+	\begin{align*}
+		\mathbb{P}[X|Y=y_1] &\sim \mathcal{N}(0, 1)\\
+		\mathbb{P}[X|Y=y_2] &\sim \mathcal{N}(0, 2) \\
+		t&=0
+	\end{align*}
 
 
 \section*{Problem 4} 
