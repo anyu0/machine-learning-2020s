@@ -1,3 +1,5 @@
+*.aux
+*.cls
 homework.log
 homework.pdf
 homework.synctex.gz
