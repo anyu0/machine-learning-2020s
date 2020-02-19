@@ -30,8 +30,14 @@
 		=& \, \frac{d}{dt}\int_{-\infty}^t  \mathbb{P}[Y=y_1 | X=x] dx - \frac{d}{dt} \int_{\infty}^t  \mathbb{P}[Y=y_2 | X=x] dx \\
 		=&\,  \mathbb{P}[Y=y_1 | X=t] - \mathbb{P}[Y=y_2 | X=t] \tag{Foundamental Theorem of Calculus}
 	\end{align*}
-	To minimize the error rate, we set $\frac{d}{dt} \mathbb{P}[f_t(x)\neq y] = 0$. \\
-	Hence $\mathbb{P}[Y=y_1 | X=t] = \mathbb{P}[Y=y_2 | X=t]$.
+	To minimize the error rate, we set $\frac{d}{dt} \mathbb{P}[f_t(x)\neq y] = 0$,
+	\begin{align*}
+		\mathbb{P}[Y=y_1 | X=t] &= \mathbb{P}[Y=y_2 | X=t] \\
+		\mathbb{P}[ X=t | Y=y_1 ] \frac{ \mathbb{P}[ Y=y_1 ]}{ \mathbb{P}[ X=t]}
+		&= \mathbb{P}[ X=t | Y=y_2 ] \frac{ \mathbb{P}[ Y=y_2 ]}{ \mathbb{P}[ X=t]} \tag{Bayes Rule}\\
+		\mathbb{P}[ X=t | Y=y_1 ] \mathbb{P}[ Y=y_1 ] 
+		&= \mathbb{P}[ X=t | Y=y_2 ] \mathbb{P}[ Y=y_2 ]
+	\end{align*}
 \subsection*{(iii)}
 
 
