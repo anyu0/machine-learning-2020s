@@ -1,0 +1,76 @@
+\documentclass[twoside,11pt]{homework}
+
+\usepackage{dsfont}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\coursename{COMS 4771 Machine Learning (Spring 2020)} 
+
+\studname{Angela Wang}     
+\studmail{aw3062@columbia.edu}
+\hwNo{1}      
+\date{02/21/2020}  
+\begin{document}
+\maketitle
+
+
+
+\section*{Problem 3} 
+\subsection*{(i)}
+\subsection*{(ii)}
+\subsection*{(iii)}
+
+
+\section*{Problem 4} 
+\subsection*{(i)}
+	\begin{proof}
+		Since $M^{T} = (A^{T}A)^{T} = A^{T}A = M$, M is symmetric. 
+		For any column vector $z\in \mathbb{R}^d$, $z^TMz = z^TA^TAz = (Az)^T (Az) = (Az)\cdot(Az) \geq 0$, 
+		so M is positive semi-definite.
+	\end{proof}
+\subsection*{(ii)}
+	\begin{proof}
+		Base case: if $N=1$, then by definition, 
+		\begin{align*}
+			\beta^{(1)} &= \beta^{(0)}+ \eta  A^{T} (b-A \beta^{(0)}) \\
+			&= \eta v - \eta M \beta^{(0)} \\
+			&= \eta v 
+		\end{align*}
+		Assuming the statement $\beta^{(N)} = \eta \sum_{k=0}^{N-1} (I-\eta M)^k v$ is true for $N=n$, then for $N=n+1$ we have
+		\begin{align*}
+			\beta^{(n+1)} &= (I-\eta M) \beta^{(n)} + \eta v \tag{definition} \\
+			&= (I-\eta M) \eta  \sum_{k=0}^{n-1} (I-\eta M)^k v + \eta v \tag{induction hypothesis} \\
+			&= \eta  \sum_{k=0}^{n-1} (I-\eta M)^{(k+1)} v + \eta (I-\eta M)^0 v \\
+			&= \eta  \sum_{k=1}^{n} (I-\eta M)^{(k)} v + \eta (I-\eta M)^0 v \\
+			&= \eta  \sum_{k=0}^{n} (I-\eta M)^{(k)} v
+		\end{align*}
+	\end{proof}
+\subsection*{(iii)}
+	Since $M$ is a real symmetric matrix, it has a decomposition $M = P D P^{-1}$, 
+	where $P$ is a matrix composed of orthogonal eigenvectors corresponding to distinct eigenvalues,
+	and $D:= \text{diag}(\lambda_1,\dots, \lambda_d)$.
+	\begin{align*}
+		&\eta \sum_{k=0}^{N-1} (I-\eta M)^k \\
+		=& \eta \sum_{k=0}^{N-1} \sum_{i=0}^{k} I^{k-i}(-\eta M)^i \\
+		=&  \sum_{k=0}^{N-1} \sum_{i=0}^{k} (-1)^i\eta^{i+1} M^{i} \\
+		=&  \sum_{k=0}^{N-1} \sum_{i=0}^{k} (-1)^i\eta^{i+1} PD^{i}P^{-1} \\
+		=& P  \left(\sum_{k=0}^{N-1} \sum_{i=0}^{k}  (-1)^i\eta^{i+1}  \text{diag}(\lambda_1^i,\dots, \lambda_d^i) \right) P^{-1} \\
+		=& P \, \text{diag} \left(\sum_{k=0}^{N-1} \sum_{i=0}^{k}  (-1)^i\eta^{i+1} \lambda_1^i,\dots, 
+		\sum_{k=0}^{N-1} \sum_{i=0}^{k}  (-1)^i\eta^{i+1} \lambda_d^i \right)  P^{-1}\\
+		=& P \, \text{diag} \left(
+			\sum_{i=0}^{N-1} (N-i) (-1)^{i}\eta^{i+1}\lambda^i_1
+			\dots, 
+			\sum_{i=0}^{N-1} (N-i) (-1)^{i}\eta^{i+1}\lambda^i_d
+		\right)  P^{-1}
+	\end{align*}
+	Since $I$, $M$ are symmetric, $\eta \sum_{k=0}^{N-1} (I-\eta M)^k$ is symmetric, 
+	and its eiganvalues $\lambda_1',\dots, \lambda_d'$ are given by
+	\begin{align*}
+		\lambda_j' = \sum_{i=0}^{N-1} (N-i) (-1)^{i}\eta^{i+1}\lambda^i_j
+	\end{align*}
+	for any $j=1,\dots,d$.
+\subsection*{(iv)}
+
+
+
+\end{document} 
