@@ -17,7 +17,21 @@
 
 \section*{Problem 3} 
 \subsection*{(i)}
+	The error rate is the probability of getting false positive or false negatives:
+	\begin{align*}
+		& \mathbb{P}[f_t(x)\neq y] \\
+		=& \mathbb{P}[Y=y_1 | X\leq t] + \mathbb{P}[Y=y_2 | X\geq t] \\
+		=& \int_{-\infty}^t  \mathbb{P}[Y=y_1 | X=x] dx + \int_{t}^\infty  \mathbb{P}[Y=y_2 | X=x] dx
+	\end{align*}
 \subsection*{(ii)}
+	Differentiating the error rate, we have
+	\begin{align*}
+		& \frac{d}{dt} \mathbb{P}[f_t(x)\neq y]  \\
+		=& \, \frac{d}{dt}\int_{-\infty}^t  \mathbb{P}[Y=y_1 | X=x] dx - \frac{d}{dt} \int_{\infty}^t  \mathbb{P}[Y=y_2 | X=x] dx \\
+		=&\,  \mathbb{P}[Y=y_1 | X=t] - \mathbb{P}[Y=y_2 | X=t] \tag{Foundamental Theorem of Calculus}
+	\end{align*}
+	To minimize the error rate, we set $\frac{d}{dt} \mathbb{P}[f_t(x)\neq y] = 0$. \\
+	Hence $\mathbb{P}[Y=y_1 | X=t] = \mathbb{P}[Y=y_2 | X=t]$.
 \subsection*{(iii)}
 
 
@@ -86,7 +100,7 @@
 
 
 
-=======
+
 \section*{Problem 5}
 \subsection*{Part 0}
 	Ignoring the sensitive attribute does not guarantee fairness because there may be 
