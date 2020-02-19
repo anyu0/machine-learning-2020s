@@ -72,7 +72,12 @@
 \subsection*{(iv)}
 
 Part 0:
-Ignoring the sensitive attribute does not guarantee fairness because there may be other attributes with correlation to that sensitive attributes. For instance, assume that the sensitive attribute is income level, but you also have attributes like number of cars owned, average spending per month, etc. Simply removing income level does not prevent the model from maintaining a bias since it will still use number of cars owned, average spending per month, etc. to classify the data. As a result, the model will likely fail to maintain fairness across the sensitive distribution.
+Ignoring the sensitive attribute does not guarantee fairness because there may be
+ other attributes with correlation to that sensitive attributes. For instance,
+  assume that the sensitive attribute is income level, but you also have attributes like number of cars owned, average spending per month, etc. Simply removing income
+   level does not prevent the model from maintaining a bias since it will still use
+    number of cars owned, average spending per month, etc. to classify the data. As
+     a result, the model will likely fail to maintain fairness across the sensitive distribution.
 
 Part 1:
 $$P[Y=1]=P_a[Y=1]$$ 
