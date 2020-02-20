@@ -1,5 +1,5 @@
 *.aux
 *.cls
-homework.log
+*.log
 homework.pdf
 homework.synctex.gz
