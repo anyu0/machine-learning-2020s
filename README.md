@@ -7,5 +7,5 @@
 * Angela Wang (aw3062)
 
 ## To Do
-* Q1.2 -- ask in OH
-* Q5 KNN -- Reweighting, Lp metrics?
+* Q1.2
+* Q5 graphs
