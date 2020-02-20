@@ -7,6 +7,6 @@
 * Angela Wang (aw3062)
 
 ## To Do
-* Finish Latexing Q1 and Q2
+* Q1.2 -- ask in OH
 * Justify metrics for Q6
 * Proof for Q5.1
