@@ -8,12 +8,39 @@
 
 \studname{Angela Wang}     
 \studmail{aw3062@columbia.edu}
+\collab{Jane Pan, Stan Liao}
 \hwNo{1}      
 \date{02/21/2020}  
 \begin{document}
 \maketitle
 
-
+\section*{Problem 1} 
+\subsection*{(i)}
+	The likelihood function of $\theta$ is 
+	\begin{align*}
+		\mathcal{L}(\theta|X):=& \mathbb{P}(X|\theta) \\
+		=& \prod_{i=1}^n \mathbb{P}(x_i | \theta) \tag{i.i.d.}
+	\end{align*}
+	where $\mathbb{P}(x_i | \theta) = \frac{1}{b-a}$ if $x\in [a,b]$, and $\mathbb{P}(x_i | \theta) = 0$ otherwise. 
+	The maximum likelihood estimate is the $\theta$ that maximizes $\mathcal{L}(\theta|X)$, given by
+	\begin{align*}
+		 \text{arg}\max_\theta \mathcal{L}(\theta|X) 
+		=  \text{arg}\max_\theta \log \mathcal{L}(\theta|X) 
+		= \text{arg}\max_\theta \log \prod_{i=1}^n \mathbb{P}(x_i | \theta)
+	\end{align*}
+	To maximize the likelihood, we choose $a\leq \min(x_1,\dots,x_n)$, and  $b\geq \max(x_1,\dots,x_n)$,
+	\begin{align*}
+		& \text{arg}\max_\theta \mathcal{L}(\theta|X) \\
+		= & \text{arg}\max_\theta \log \left(\frac{1}{b-a}\right)^n \\
+		= & \text{arg} \max_\theta \, n \log\left(\frac{1}{b-a}\right)
+	\end{align*}
+	To maximize the logarithm, we should minimize $b-a$. Hence $\theta = (a,b)$, where
+	\begin{align*}
+		a &= \min(x_1,\dots,x_n) \\
+		b &= \max(x_1,\dots,x_n)
+	\end{align*}
+\section*{Problem 2} 
+\subsection*{(i)}
 
 \section*{Problem 3} 
 \subsection*{(i)}
