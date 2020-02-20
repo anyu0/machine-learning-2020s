@@ -208,24 +208,19 @@
 	and $D:= \text{diag}(\lambda_1,\dots, \lambda_d)$.
 	\begin{align*}
 		&\eta \sum_{k=0}^{N-1} (I-\eta M)^k \\
-		=& \eta \sum_{k=0}^{N-1} \sum_{i=0}^{k} I^{k-i}(-\eta M)^i \\
-		=&  \sum_{k=0}^{N-1} \sum_{i=0}^{k} (-1)^i\eta^{i+1} M^{i} \\
-		=&  \sum_{k=0}^{N-1} \sum_{i=0}^{k} (-1)^i\eta^{i+1} PD^{i}P^{-1} \\
-		=& P  \left(\sum_{k=0}^{N-1} \sum_{i=0}^{k}  (-1)^i\eta^{i+1}  \text{diag}(\lambda_1^i,\dots, \lambda_d^i) \right) P^{-1} \\
-		=& P \, \text{diag} \left(\sum_{k=0}^{N-1} \sum_{i=0}^{k}  (-1)^i\eta^{i+1} \lambda_1^i,\dots, 
-		\sum_{k=0}^{N-1} \sum_{i=0}^{k}  (-1)^i\eta^{i+1} \lambda_d^i \right)  P^{-1}\\
-		=& P \, \text{diag} \left(
-			\sum_{i=0}^{N-1} (N-i) (-1)^{i}\eta^{i+1}\lambda^i_1
-			\dots, 
-			\sum_{i=0}^{N-1} (N-i) (-1)^{i}\eta^{i+1}\lambda^i_d
-		\right)  P^{-1}
+		=&\eta \sum_{k=0}^{N-1} \left(P(\text{diag} \left( 1- \eta \lambda_1, \dots, 1- \eta \lambda_d
+		\right) \right)P^{-1})^k \tag{$I-\eta M$ is symmetric} \\
+		=&\eta \sum_{k=0}^{N-1} P \,
+		\text{diag} \left( (1- \eta \lambda_1)^k, \dots, (1- \eta \lambda_d)^k \right) P^{-1} \\
+		=& P \, \text{diag} \left( \sum_{k=0}^{N-1} \eta(1- \eta \lambda_1)^k, 
+		\dots, \sum_{k=0}^{N-1} \eta(1- \eta \lambda_d)^k \right) P^{-1}
 	\end{align*}
 	Since $I$, $M$ are symmetric, $\eta \sum_{k=0}^{N-1} (I-\eta M)^k$ is symmetric, 
 	and its eiganvalues $\lambda_1',\dots, \lambda_d'$ are given by
 	\begin{align*}
-		\lambda_j' = \sum_{i=0}^{N-1} (N-i) (-1)^{i}\eta^{i+1}\lambda^i_j
+		\lambda_i' = \sum_{k=0}^{N-1} \eta(1- \eta \lambda_i)^k
 	\end{align*}
-	for any $j=1,\dots,d$.
+	for any $i=1,\dots,d$.
 \subsection*{(iv)}
 	\begin{proof}
 	We start by deriving a iterative formula for the difference
@@ -250,17 +245,32 @@
 	Simply removing race does not decrease bias, since neighborhood still acts as a trait in classification of the data. 
 	The model therefore fails to maintain fairness across the sensitive attribute.
 \subsection*{(ii)}  
-	Since $\mathbb{P}_a[\hat{Y}=1]=\mathbb{P}[\hat{Y}=1|a=0]=\mathbb{P}[\hat{Y}=0|a=1]$, the following are equivalent:
+	\begin{proof}
+	Assuming for any $a\in A$, $\mathbb{P}[\hat{Y}=1]=\mathbb{P}_a[\hat{Y}=1]$, we can write trivially
 	\begin{align*}
-		\mathbb{P}[\hat{Y}=1]&=\mathbb{P}_a[\hat{Y}=1]\\
-		\mathbb{P}[\hat{Y}=1|a=0]&=\mathbb{P}[\hat{Y}=0|a=1]\\
 		\mathbb{P}_0[\hat{Y}=1]&=\mathbb{P}_1[\hat{Y}=1]
 	\end{align*}
+	Conversely, if $\mathbb{P}_0[\hat{Y}=1]=\mathbb{P}_1[\hat{Y}=1]=:\mathbb{P}_a[\hat{Y}=1]$, then 
+	\begin{align*}
+		\mathbb{P}[\hat{Y}=1] &= \mathbb{P}[\hat{Y}=1|a=0]\mathbb{P}[a=0]+\mathbb{P}[\hat{Y}=1|a=1]\mathbb{P}[a=1]\\
+		&= \mathbb{P}_a[\hat{Y}=1] (\mathbb{P}[a=0]+\mathbb{P}[a=1])\\
+		&= \mathbb{P}_a[\hat{Y}=1]
+	\end{align*}
+	\end{proof}
 \subsection*{(iii)}  
-	Now we generalize the statement to $A\in \mathbb{N}$ and $\hat{Y} \in \mathbb{R}$.
-	$\forall b_1, b_2  \in A$, $\forall y\in \mathbb{R}$, we have 
-	$$\mathbb{P}_{b_1}[\hat{Y}=y] = \mathbb{P}_{b_2}[\hat{Y}=y] 
-	\Longleftrightarrow \mathbb{P}[\hat{Y}=y] = \mathbb{P}_a[\hat{Y}=y] \qquad \forall a\in A$$
+	\begin{claim}
+		$\forall a_1, a_2  \in A\subset \mathbb{N}$, $\forall y\in \mathbb{R}$, we have 
+		$$\mathbb{P}_{a_1}[\hat{Y}=y] = \mathbb{P}_{a_2}[\hat{Y}=y] 
+		\Longleftrightarrow \mathbb{P}[\hat{Y}=y] = \mathbb{P}_a[\hat{Y}=y] \qquad \forall a\in A$$
+	\end{claim}
+	\begin{proof}
+		The backward direction is trivial. For the forward direction, we write
+		\begin{align*}
+			 \mathbb{P}[\hat{Y}=y] &= \sum_{a_i \in A} \mathbb{P}_{a_i}[\hat{Y}=y]\mathbb{P}[a=a_i] \\
+ 			 &=  \mathbb{P}_a[\hat{Y}=y] \left( \sum_{a_i\in A} \mathbb{P}[a=a_i] \right) \\
+			 &=  \mathbb{P}_a[\hat{Y}=y] 
+		\end{align*}
+	\end{proof}
 \subsection*{(viii)}  
 	No, there is a tradeoff between bias and variance.
 
