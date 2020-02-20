@@ -245,22 +245,24 @@
 
 
 \section*{Problem 5}
-\subsection*{Part 0}
-	Ignoring the sensitive attribute does not guarantee fairness because there may be 
-	other attributes with correlation to that sensitive attributes. 
-	For instance, assume that thhe sensitive attribute is income level, 
-	but you also have attributes like number of cars owned, average spending per month, etc. 
-	Simply removing income level does not prevent the model from maintaining a bias since it will still use 
-	number of cars owned, average spending per month, etc. to classify the data. As a result, 
-	the model will likely fail to maintain fairness across the sensitive distribution.
-\subsection*{Part 1}  
-	$$P[Y=1]=P_a[Y=1]$$ 
-	$$P_a[Y=1]=P[Y=1|a=0]=P[Y=0|a=1]$$
-	$$P[Y=1|a=0]=P[Y=0|a=1]$$
-	$$P_0[Y=1]=P_1[Y=1]$$
-	Generalizing:
-	$$P_{a}[Y=1] = P_{a'}[Y=1] \forall a, a ' \in A$$
-	$$P[y=1] = P_a[y=1] \forall a \in A$$\\
+\subsection*{(i)}
+	There may be correlated attributes (e.g. neighborhood) that are proxies of the sensitive attribute (e.g. race). 
+	Simply removing race does not decrease bias, since neighborhood still acts as a trait in classification of the data. 
+	The model therefore fails to maintain fairness across the sensitive attribute.
+\subsection*{(ii)}  
+	Since $\mathbb{P}_a[\hat{Y}=1]=\mathbb{P}[\hat{Y}=1|a=0]=\mathbb{P}[\hat{Y}=0|a=1]$, the following are equivalent:
+	\begin{align*}
+		\mathbb{P}[\hat{Y}=1]&=\mathbb{P}_a[\hat{Y}=1]\\
+		\mathbb{P}[\hat{Y}=1|a=0]&=\mathbb{P}[\hat{Y}=0|a=1]\\
+		\mathbb{P}_0[\hat{Y}=1]&=\mathbb{P}_1[\hat{Y}=1]
+	\end{align*}
+\subsection*{(iii)}  
+	Now we generalize the statement to $A\in \mathbb{N}$ and $\hat{Y} \in \mathbb{R}$.
+	$\forall b_1, b_2  \in A$, $\forall y\in \mathbb{R}$, we have 
+	$$\mathbb{P}_{b_1}[\hat{Y}=y] = \mathbb{P}_{b_2}[\hat{Y}=y] 
+	\Longleftrightarrow \mathbb{P}[\hat{Y}=y] = \mathbb{P}_a[\hat{Y}=y] \qquad \forall a\in A$$
+\subsection*{(viii)}  
+	No, there is a tradeoff between bias and variance.
 
 
 
