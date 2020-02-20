@@ -34,11 +34,41 @@
 		= & \text{arg}\max_\theta \log \left(\frac{1}{b-a}\right)^n \\
 		= & \text{arg} \max_\theta \, n \log\left(\frac{1}{b-a}\right)
 	\end{align*}
-	To maximize the logarithm, we should minimize $b-a$. Hence $\theta = (a,b)$, where
+	To maximize the logarithm, we should minimize $b-a$. Hence $\theta_{\text{ML}} = (a_{\text{ML}} ,b_{\text{ML}} )$, where
 	\begin{align*}
-		a &= \min(x_1,\dots,x_n) \\
-		b &= \max(x_1,\dots,x_n)
+		a_{\text{ML}}  &= \min(x_1,\dots,x_n) \\
+		b_{\text{ML}}  &= \max(x_1,\dots,x_n)
 	\end{align*}
+\subsection*{(ii)}
+	\begin{proof}
+		Define $\eta = g(\theta)$. Suppose $g$ is bijective, then $\exists g^{-1}$ such that 
+		\begin{align*}
+			\mathcal{L}(\theta|X) = \mathcal{L}( g^{-1}(\eta) |X)
+		\end{align*}
+		whose maximum value is $\mathcal{L}(\theta_{\text{ML}}|X) $. 
+		To maximize $\mathcal{L}( g^{-1}(\eta) |X)$, choose $\eta_{\text{ML}}$
+		such that $g^{-1}(\eta_{\text{ML}})=\theta_{\text{ML}}$. We have $\eta_{\text{ML}}=g(\theta_{\text{ML}})$.\\
+		\begin{remark} 
+			For the case when $g$ is not bijective, we apply the Invertible Function Theorem to find local inverses for $g$.		
+		\end{remark}
+	\end{proof}
+\subsection*{(iii)}
+	Let $X_1,\dots, X_n \sim \mathcal{N}(\mu, \sigma^2)$ be i.i.d random variables.
+	\begin{claim}
+		$\hat{\mu_n} = \frac{1}{n} \sum_{i=1}^n X_i $ is a consistent and unbiased estimator for $\mu$.
+	\end{claim}
+	\begin{proof}
+		By Law of Large Numbers, 
+		$\hat{\mu_n} $ converges to $\hat{\mu} = \lim\limits_{n\rightarrow \infty} \frac{1}{n} \sum_{i=1}^n X_i$,
+		so $\hat{\mu_n}$ is consistent.\\
+		Since $\mathbb{E}[\hat{\mu_n}]
+		=\mathbb{E}[\frac{1}{n} \sum_{i=1}^n X_i]
+		=\frac{1}{n} \sum_{i=1}^n \mathbb{E}[X_i]
+		=\frac{1}{n} \sum_{i=1}^n \mu
+		=\mu
+		$, the estimator is unbiased.
+	\end{proof}
+	
 \section*{Problem 2} 
 \subsection*{(i)}
 
