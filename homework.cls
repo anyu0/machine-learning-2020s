@@ -115,10 +115,9 @@
 }
 
 \title{\@coursename \\ Problem Set \#\@hwNo}
-\author{%
-  \@studname \ - \texttt{\@studmail} 
-%\\
- % Discussants: \texttt{\@collab}%
+\author{
+  \@studname \ - \texttt{\@studmail} \\
+ Collab: \texttt{\@collab}
 }
 \date{\today}
 
