@@ -8,5 +8,4 @@
 
 ## To Do
 * Q1.2 -- ask in OH
-* Justify metrics for Q6
-* Proof for Q5.1
+* Q5 KNN -- Reweighting, Lp metrics?
