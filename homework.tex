@@ -54,20 +54,55 @@
 	\end{proof}
 \subsection*{(iii)}
 	Let $X_1,\dots, X_n \sim \mathcal{N}(\mu, \sigma^2)$ be i.i.d random variables.
+\subsubsection*{(a)}
 	\begin{claim}
-		$\hat{\mu_n} = \frac{1}{n} \sum_{i=1}^n X_i $ is a consistent and unbiased estimator for $\mu$.
+		$\frac{1}{n} \sum_{i=1}^n X_i $ is a consistent and unbiased estimator for $\mu$.
 	\end{claim}
 	\begin{proof}
 		By Law of Large Numbers, 
-		$\hat{\mu_n} $ converges to $\hat{\mu} = \lim\limits_{n\rightarrow \infty} \frac{1}{n} \sum_{i=1}^n X_i$,
-		so $\hat{\mu_n}$ is consistent.\\
-		Since $\mathbb{E}[\hat{\mu_n}]
-		=\mathbb{E}[\frac{1}{n} \sum_{i=1}^n X_i]
+		$ \lim\limits_{n\rightarrow \infty} \frac{1}{n} \sum_{i=1}^n X_i = \mu$.\\
+		Since $\mathbb{E}[\frac{1}{n} \sum_{i=1}^n X_i]
 		=\frac{1}{n} \sum_{i=1}^n \mathbb{E}[X_i]
 		=\frac{1}{n} \sum_{i=1}^n \mu
 		=\mu
 		$, the estimator is unbiased.
 	\end{proof}
+	\begin{claim}
+		$\frac{1}{n} \sum_{i=1}^n X_i + \frac{1}{n} X_1- \frac{1}{n} X_2$ is a consistent and unbiased estimator for $\mu$.
+	\end{claim}
+\subsubsection*{(b)}	
+	\begin{claim}
+		$ \frac{1}{n} \sum_{i=1}^n X_i +\frac{1}{n}$ is a biased but consistent estimator for $\mu$.
+	\end{claim}
+	\begin{proof}
+		$ \lim\limits_{n\rightarrow \infty} (\frac{1}{n} \sum_{i=1}^n X_i +\frac{1}{n})= \mu$.
+		$\mathbb{E}[\frac{1}{n} \sum_{i=1}^n X_i +\frac{1}{n}]
+		=\frac{1}{n} \sum_{i=1}^n \mathbb{E}[X_i] +\frac{1}{n}
+		=\mu+\frac{1}{n}.
+		$
+	\end{proof}
+	\begin{claim}
+		$ \frac{1}{n} \sum_{i=1}^n X_i +\frac{1}{n^2}$ is a biased but consistent estimator for $\mu$.
+	\end{claim}
+\subsubsection*{(c)}
+	\begin{claim}
+		$X_1$ is an unbiased but inconsistent estimator for $\mu$.
+	\end{claim}
+	\begin{proof}
+		$X_1$ is not consistent since its distribution does not become more concentrated around $\mu$ 
+		as the sample size increases.
+		$\mathbb{E}[X_1] =\mu$ so $X_1$ is an unbiased estimator.
+	\end{proof}
+	\begin{claim}
+		$X_2$ is an unbiased but inconsistent estimator for $\mu$.
+	\end{claim}
+\subsubsection*{(d)}
+	\begin{claim}
+		The constant $1$ is a biased and inconsistent estimator for $\mu$.
+	\end{claim}
+	\begin{claim}
+		$1+X_1$ is a biased and inconsistent estimator for $\mu$.
+	\end{claim}
 	
 \section*{Problem 2} 
 \subsection*{(i)}
