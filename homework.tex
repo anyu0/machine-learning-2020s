@@ -106,6 +106,36 @@
 	
 \section*{Problem 2} 
 \subsection*{(i)}
+	Let $\Pi$ be the profit. We can write
+	\begin{align*}
+		\Pi &= \mathds{1}_{D\geq Q} (P-C)Q + \mathds{1}_{D\leq Q} \left[(P-C)D-C(Q-D)\right] \\
+		&= -CQ +\mathds{1}_{D\geq Q} PQ+\mathds{1}_{D\leq Q} PD
+	\end{align*}
+	The expected profit is given by
+	\begin{align*}
+		\mathbb{E} [\Pi] &= -CQ+\int_Q^\infty PQ\mathbb{P}(D)dD
+		+ \int_{-\infty}^Q PD\mathbb{P}(D)dD \\
+		&= -CQ+ PQ\int_Q^\infty \mathbb{P}(D)dD
+		+ P\int_{-\infty}^Q D\mathbb{P}(D)dD
+	\end{align*}
+\subsection*{(ii)}
+	\begin{proof}
+	Taking the derivative,
+	\begin{align*}
+		\frac{d\mathbb{E} [\Pi]}{dQ} &= -C + P\int_Q^\infty \mathbb{P}(D)dD
+		+ PQ \frac{d}{dQ} \int_Q^\infty \mathbb{P}(D)dD
+		+ P \frac{d}{dQ}  \int_{-\infty}^Q D\mathbb{P}(D)dD \\
+		&= -C + P\int_Q^\infty \mathbb{P}(D)dD
+		- PQ \mathbb{P}(Q)
+		+ P Q\mathbb{P}(Q) \tag{Fundamental Theorem of Calculus}\\
+		&=-C+P\int_Q^\infty \mathbb{P}(D)dD\\
+		&=-C +P(1-F(Q))
+	\end{align*}
+	To maximize profit, we let $\frac{d\mathbb{E} [\Pi]}{dQ} =-C +P(1-F(Q^*)= 0$. Rearranging, we have
+	\begin{align*}
+		Q^*= F^{-1}\left(1-\frac{C}{P}\right)
+	\end{align*}
+	\end{proof}
 
 \section*{Problem 3} 
 \subsection*{(i)}
