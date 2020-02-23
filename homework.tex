@@ -3,6 +3,7 @@
 \usepackage{dsfont}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{float}
 
 \coursename{COMS 4771 Machine Learning (Spring 2020)} 
 
@@ -304,6 +305,91 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 			 &=  \mathbb{P}_a[\hat{Y}=y] 
 		\end{align*}
 	\end{proof}
+	
+\subsection*{(iv)}  
+	We choose $k=148$ for KNN, because it gives relatively high accuracy with the same distance metric ($L_2$).
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q5_fig/performance_vs_k.png}	
+		\caption{Prediction Accuracy against k for Nearest Neighbor Algorithm}
+	\end{figure}
+	We use $L_2$ as the distance metric for KNN, because it gives high accuracy under $k=148$. 
+	It makes sense that as $p$ approaches infinity, accuracy of KNN decreases, 
+	because the distance metric becomes Chebyshev, and only the maximum difference between traits will affect the classification result.
+	In this example, age will become the most influential factor.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q5_fig/performance_vs_p.png}	
+		\caption{Prediction Accuracy against k for Nearest Neighbor Algorithm}
+	\end{figure}
+	Table 1 summarizes the performance rate for the classifiers.
+	\begin{table}[H]
+	\centering
+	\caption{Performance of Classifiers}
+	\begin{tabular}{lr}
+		Classifier   & Accuracy \\
+		\textbf{MLE}   & 0.6415    \\
+		\textbf{KNN}   & 0.6895        \\
+		\textbf{Bayes} & 0.68
+	\end{tabular}
+	\end{table}
+	
+	
+\subsection*{(v)}  
+	Based on the learning curve of classifiers, KNN has the highest accuracy, and its performance is consistent.
+	The reason is that this classification problem directly focuses on finding similarity between observations, 
+	and KNN optimizes the classification locally. It could also be the case that the dataset has few outliers, 
+	which would drastically bring down the performance of KNN. A downside is that the order of KNN is 
+	$O(n^2)$, and it becomes slower with more data. \\
+	
+	Naive Bayes is is much faster than KNN and could be used for prediction in real time, 
+	since it learns overtime, taking a probabilistic estimation route and generates probabilities for each class. 
+	However, it is not the best classifier for this problem as the accuracy is lower than KNN. 
+	Given a larger learning dataset, Naive Bayes could have more potential. \\
+	
+	The accuracy of the MLE classifier is low, because unlike its assumption, the features might not have a Gaussian distribution.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q5_fig/classifiers.png}	
+		\caption{Prediction Accuracy against Size of Training Data}
+	\end{figure}
+\subsection*{(vi)}
+	Demographic Parity is best achieved by MLE, having roughly $10\%$ difference in the probability of labelling $\hat{Y}=0$, 
+	given different sensitive attributes.  
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q5_fig/dp.png}	
+		\caption{Demographic Parity Condition of Classifiers}
+	\end{figure}
+	Equalized Odds is best achieved by MLE, having $14.5\%$ difference in the probability of getting a true positive
+	($\mathbb{P}_0[Y=1|\hat{Y}=1]-\mathbb{P}_1[Y=1|\hat{Y}=1]$),
+	and $4.4\%$ difference in the probability of getting a true negative ($\mathbb{P}_0[Y=0|\hat{Y}=0]-\mathbb{P}_1[Y=0|\hat{Y}=0]$).
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q5_fig/eo_neg.png}	
+		\caption{Equalized True Negative Condition of Classifiers}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q5_fig/eo_pos.png}	
+		\caption{Equalized True Positive Condition of Classifiers}
+	\end{figure}
+	KNN and Naive Bayes do similarity well for Predictive Parity. In particular, KNN has only $0.6\%$ difference in 
+	negative predicative parity across the sensitive attribute.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q5_fig/pp_neg.png}	
+		\caption{Negative Predictive Parity Condition of Classifiers}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q5_fig/pp_pos.png}	
+		\caption{Positive Predictive Parity Condition of Classifiers}
+	\end{figure}
+	In conclusion, the classification made by MLE favors Demographic Parity and Equalized Odds, while 
+	KNN and Naive Bayes favor Predictive Parity.
+
 \subsection*{(viii)}  
 	No, there is a tradeoff between bias and variance.
 
