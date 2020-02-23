@@ -71,6 +71,15 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 	\begin{claim}
 		$\frac{1}{n} \sum_{i=1}^n X_i + \frac{1}{n} X_1- \frac{1}{n} X_2$ is a consistent and unbiased estimator for $\mu$.
 	\end{claim}
+	\begin{proof}
+		By Law of Large Numbers, 
+		$ \lim\limits_{n\rightarrow \infty} \frac{1}{n} \sum_{i=1}^n X_i + \frac{1}{n} X_1- \frac{1}{n} X_2 = \mu$.\\
+		Since $\mathbb{E}[\frac{1}{n} \sum_{i=1}^n X_i  + \frac{1}{n} X_1- \frac{1}{n} X_2]
+		=\frac{1}{n} (\sum_{i=1}^n \mathbb{E}[X_i] +  \sum_{i=1}^n \mathbb{E}[\frac{1}{n} X_1 - \frac{1}{n} X_2]
+		=\frac{1}{n} (\sum_{i=1}^n \mu + \frac{\mu}{n} - \frac{\mu}{n})
+		=\mu
+		$, the estimator is unbiased.
+	\end{proof}
 
 \subsubsection*{(b)}	
 	\begin{claim}
@@ -86,6 +95,13 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 	\begin{claim}
 		$ \frac{1}{n} \sum_{i=1}^n X_i +\frac{1}{n^2}$ is a biased but consistent estimator for $\mu$.
 	\end{claim}
+	\begin{proof}
+		$ \lim\limits_{n\rightarrow \infty} (\frac{1}{n} \sum_{i=1}^n X_i +\frac{1}{n^2	})= \mu$.
+		$\mathbb{E}[\frac{1}{n} \sum_{i=1}^n X_i +\frac{1}{n^2}]
+		=\frac{1}{n} \sum_{i=1}^n \mathbb{E}[X_i] +\frac{1}{n^2}
+		=\mu+\frac{1}{n^2}.
+		$
+	\end{proof}
 \subsubsection*{(c)}
 	\begin{claim}
 		$X_1$ is an unbiased but inconsistent estimator for $\mu$.
@@ -98,13 +114,28 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 	\begin{claim}
 		$X_2$ is an unbiased but inconsistent estimator for $\mu$.
 	\end{claim}
+	\begin{proof}
+		$X_2$ is not consistent since its distribution does not become more concentrated around $\mu$ 
+		as the sample size increases.
+		$\mathbb{E}[X_2] =\mu$ so $X_2$ is an unbiased estimator.
+	\end{proof}
 \subsubsection*{(d)}
 	\begin{claim}
 		The constant $1$ is a biased and inconsistent estimator for $\mu$.
 	\end{claim}
+	\begin{proof}
+		1 is not consistent since its distribution does not become more concentrated around $\mu$ 
+		as the sample size increases.
+		$\mathbb{E}[1] = 1 $ which doesn't necessarily equal $\mu$ so 1 is a biased estimator
+	\end{proof}
 	\begin{claim}
 		$1+X_1$ is a biased and inconsistent estimator for $\mu$.
 	\end{claim}
+	\begin{proof}
+		$1 + X_1$ is not consistent since its distribution does not become more concentrated around $\mu$ 
+		as the sample size increases.
+		$\mathbb{E}[1+X_1] = 1 + \mu \neq \mu $  so $1 + X_1$ is a biased estimator
+	\end{proof}
 	
 \section*{Problem 2} 
 \subsection*{(i)}
