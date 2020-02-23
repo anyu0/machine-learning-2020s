@@ -47,10 +47,11 @@
 		\end{align*}
 		whose maximum value is $\mathcal{L}(\theta_{\text{ML}}|X) $. 
 		To maximize $\mathcal{L}( g^{-1}(\eta) |X)$, choose $\eta_{\text{ML}}$
-		such that $g^{-1}(\eta_{\text{ML}})=\theta_{\text{ML}}$. We have $\eta_{\text{ML}}=g(\theta_{\text{ML}})$.\\
-		\begin{remark} 
-			For the case when $g$ is not bijective, we apply the Invertible Function Theorem to find local inverses for $g$.		
-		\end{remark}
+		such that $g^{-1}(\eta_{\text{ML}})=\theta_{\text{ML}}$. We have $\eta_{\text{ML}}=g(\theta_{\text{ML}})$ \\ \\
+		For the case when $g$ is not bijective: we can define $L(t) = max_{\theta \in g^{-1}(t)} \mathcal{L}(\theta | x)$ where we define
+		$g^{-1}$ denotes the preimage rather than the inverse. $\{g^{-1}(t)\}$ denotes the set of all values $\theta$ s.t. $g(\theta) =t$ \\ \\
+		If $\Omega$ is the parameter space, the MLE of $g(\theta)$ is the value $t \in g(\Omega)$ such that $L(t)$ is maximized. As noted in the conditions, $\theta _{ML} $ exists such that $\mathcal{L}(\theta| x)$ is maximized for $\theta = \theta_{ML}$. The highest possible value for $\mathcal{L}(\theta | x)$ equals the highest possible value for $max_{\theta \in g^{-1}(g(\Omega))} \mathcal{L}(\theta | x)$\\ \\
+Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g^{-1}(t)\}$ or $g(\theta_{ML}) = t$ 
 	\end{proof}
 \subsection*{(iii)}
 	Let $X_1,\dots, X_n \sim \mathcal{N}(\mu, \sigma^2)$ be i.i.d random variables.
@@ -70,6 +71,7 @@
 	\begin{claim}
 		$\frac{1}{n} \sum_{i=1}^n X_i + \frac{1}{n} X_1- \frac{1}{n} X_2$ is a consistent and unbiased estimator for $\mu$.
 	\end{claim}
+
 \subsubsection*{(b)}	
 	\begin{claim}
 		$ \frac{1}{n} \sum_{i=1}^n X_i +\frac{1}{n}$ is a biased but consistent estimator for $\mu$.
