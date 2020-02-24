@@ -408,20 +408,42 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 
 \section*{Problem 6}
 \subsection*{(iii)}
-	We consider three kinds of classifiers: naive-bayes, nearest neighbor (KNN), and decision tree. Here, we are working with word vectors with stop words and numbers removed, so as to improve runtime and reduce noise.
+	We consider three kinds of classifiers: naive-bayes, nearest neighbor (KNN), and decision tree. Here, we are working with word vectors with stop words and numbers removed, so as to improve runtime and reduce noise. Our data has been split so that 70% is allocated to training and 30% to testing.
+	
 	For KNN, we consider $L_1$, $L_2$, and $L_/infty$ norms for our distance metric. For k, we considered 1, 5, 10, 50, 100, 200, 500, and 1000.
 	
 		\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5_fig/pp_neg.png}	
+		\includegraphics[scale=.5]{q6_fig/knn_k.png}	
 		\caption{Prediction Accuracy vs. k with Different Norms}
 	\end{figure}
+
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q6_fig/knn.png}	
-		\caption{Positive Predictive Parity Condition of Classifiers}
+		\includegraphics[scale=.5]{q6_fig/performance_vs_p.png}	
+		\caption{Prediction Accuracy vs. k with Different Norms}
 	\end{figure}
 	
+	We cohoe
+	
+	For the decision tree, we set aside 10\% of the training data as a validation set. To improve runtime and reduce noise, we consider only high variance features (features with the top 5\% variance).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q6_fig/knn_k.png}	
+		\caption{Prediction Accuracy vs. Decision Tree Depth}
+	\end{figure}
+	
+		\begin{table}[H]
+	\centering
+	\caption{Performance of Classifiers}
+	\begin{tabular}{lr}
+		Classifier   & Accuracy \\
+		\textbf{MLE}   & 0.6415    \\
+		\textbf{KNN}   & 0.6895        \\
+		\textbf{Bayes} & 0.9572
+	\end{tabular}
+	\end{table}
 	
 	
 	
