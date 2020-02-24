@@ -405,12 +405,11 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 \subsection*{(viii)}  
 	No, there is a tradeoff between bias and variance.
 
-
 \section*{Problem 6}
 \subsection*{(iii)}
-	We consider three kinds of classifiers: naive-bayes, nearest neighbor (KNN), and decision tree. Here, we are working with word vectors with stop words and numbers removed, so as to improve runtime and reduce noise. Our data has been split so that 70% is allocated to training and 30% to testing.
+	We consider three kinds of classifiers: naive-bayes, nearest neighbor (KNN), and decision tree. Here, we are working with word vectors with stop words and numbers removed, so as to improve runtime and reduce noise. We have also removed features with a total word count below 50. Our data has been split so that 70\% is allocated to training and 30\% to testing.
 	
-	For KNN, we consider $L_1$, $L_2$, and $L_/infty$ norms for our distance metric. For k, we considered 1, 5, 10, 50, 100, 200, 500, and 1000.
+	For KNN, we consider $L_1$, $L_2$, and $L_\infty$ norms for our distance metric. For k, we considered 1, 5, 10, 50, 100, 200, 500, and 1000.
 	
 		\begin{figure}[H]
 		\centering
@@ -421,34 +420,61 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=.5]{q6_fig/performance_vs_p.png}	
-		\caption{Prediction Accuracy vs. k with Different Norms}
+		\caption{Prediction Accuracy vs. p (using fixed k = 90)}
 	\end{figure}
 	
-	We cohoe
+	Here, the best accuracy can be found using an $L_2$ norm with k = 1. Generally, as k increases, accuracy decreases. The $L_2$ norm outperforms the other norms until k = 20, at which point the $L_1$ norm has the best accuracy. The $L_\infty$ norm consistently underperforms relative to its peers. With k = 1 and $L_2$ norms, this classifies at an accuracy of 0.8908.
 	
-	For the decision tree, we set aside 10\% of the training data as a validation set. To improve runtime and reduce noise, we consider only high variance features (features with the top 5\% variance).
+	For Bayes, we apply add-one Laplace smoothing and take the logarithms of the probabilities so as to prevent zero-frequency problems from occurring. This provided an accuracy of 0.9572.
+	
+	For the decision tree, we set aside 10\% of the training data as a validation set. To improve runtime and reduce noise, we consider only high variance features (features with the top 5\% variance). We built 50 trees of depths, 5, 10, ..., 250 and ran the validation set on them to determine which tree depth yielded the best accuracy. The best prediction accuracy came from the tree with 15 layers, which classified the validation set with an accuracy of 0.8796.
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q6_fig/knn_k.png}	
+		\includegraphics[scale=.5]{q6_fig/dt_val.png}	
 		\caption{Prediction Accuracy vs. Decision Tree Depth}
 	\end{figure}
 	
+	Using this tree to classify our test set produced a prediction accuracy of 0.8724.
 		\begin{table}[H]
 	\centering
 	\caption{Performance of Classifiers}
 	\begin{tabular}{lr}
 		Classifier   & Accuracy \\
-		\textbf{MLE}   & 0.6415    \\
-		\textbf{KNN}   & 0.6895        \\
+		\textbf{KNN}   & 0.8908    \\
+		\textbf{Decision Tree}   & 0.8724        \\
 		\textbf{Bayes} & 0.9572
 	\end{tabular}
 	\end{table}
 	
+	The table above shows the best accuracies demonstrated by KNN (using k = 1 and $L_2$ norm), decision tree (using a tree of depth 15), and Naive Bayes. The best classifier is by far the Naive Bayes classifier, which outperforms both the optimal KNN and the decision tree. Moreover, this improvement is robust even across different sample sizes for the training data and splits.
 	
 	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q6_fig/learning_curve.png}	
+		\caption{Prediction Accuracy vs. Training Data Size}
+	\end{figure}
+	
+	The above graph shows the performance of the three classifiers, again using the best performers, when we change the size of the training set. We keep the test data the same size (~1500 points) as before, but randomly select the training data at various sizes. The Naive Bayes classifier demonstrates a clear improvement over the other classifiers, even when the training data is cut down to less than a third of its normal size. 
+	
+	The Naive Bayes classifier is also preferred when considering different splits of data. Below, we split the data into different train/test ratios: .5/.5, .6/.4, .7/.3, .8/.2, .9/.1.
+	
+		\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{q6_fig/split.png}	
+		\caption{Prediction Accuracy vs. Train/Test Split}
+	\end{figure}
 
+	The accuracy of the KNN demonstrates reliance on the split, performing worse with a smaller train/test ratio and better with a larger ratio. The decision tree underperforms compared to the Bayes classifier no matter what split. On the other hand, the Bayes' performance outperforms both classifiers and maintains a stable prediction accuracy across all splits.
 
-
+	The robustness and consistency of the Bayes' performance is important because it demonstrates that the classifier is likely to be reliable regardless of how the data is used (with respect to the ratio of training and testing data or even the absolute size of the training set). Even with comparatively sparse training data and or different allocations of training and test data, it preserves its high prediction accuracy and outperforms the decision tree and KNN in almost all instances. 
+	
+	Moreover, the Bayes classifier runs much faster than both the decision tree and KNN. Assume we are trying to classify m points, of dimension d and training our classifier on n points. Since KNN is hobbled by its need to compute pairwise distances and nearest neighbors, and the decision tree must iterate through every feature and threshold to optimize its classifiers, they become increasingly cumbersome as data sets increase in size. So the runtime for classifying m points using KNN is $O(dm)$, and the runtime for building a decision tree is $O(dm^2)$. This makes these classifiers quite slow when considering high-dimensional and large data sets, so 
+	 reducing the number of features is extremely important in order to improve computation speed. On the other hand, Bayes classifier is extremely quick to classify (O(d)). 
+	 
+	 Finally, KNN and the decision tree are algorithms that use static training data. On the other hand, Naive Bayes learns over time as it updates its prior probabilities and conditional probabilities. As an email spam classifier, the content and characteristics of spam emails is likely to change over time as spammers adapt their techniques and templates to avoid being recognized by classifiers just like this one, so having a classifier that learns is preferable to one that uses static data.
+	 
+	 
 
 \end{document} 
