@@ -408,9 +408,9 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 
 \section*{Problem 6}
 \subsection*{(iii)}
-	We consider three kinds of classifiers: naive-bayes, nearest neighbor (KNN), and decision tree. Here, we are working with word vectors with stop words and numbers removed, so as to improve runtime and reduce noise. Our data has been split so that 70% is allocated to training and 30% to testing.
+	We consider three kinds of classifiers: naive-bayes, nearest neighbor (KNN), and decision tree. Here, we are working with word vectors with stop words and numbers removed, so as to improve runtime and reduce noise. We have also removed features with a total word count below 50. Our data has been split so that 70\% is allocated to training and 30\% to testing.
 	
-	For KNN, we consider $L_1$, $L_2$, and $L_/infty$ norms for our distance metric. For k, we considered 1, 5, 10, 50, 100, 200, 500, and 1000.
+	For KNN, we consider $L_1$, $L_2$, and $L_\infty$ norms for our distance metric. For k, we considered 1, 5, 10, 50, 100, 200, 500, and 1000.
 	
 		\begin{figure}[H]
 		\centering
@@ -421,31 +421,34 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=.5]{q6_fig/performance_vs_p.png}	
-		\caption{Prediction Accuracy vs. k with Different Norms}
+		\caption{Prediction Accuracy vs. p (using fixed k = 90)}
 	\end{figure}
 	
-	We cohoe
+	Here, the best accuracy can be found using an $L_2$ norm with k = 1. Generally, as k increases, accuracy decreases. The $L_2$ norm outperforms the other norms until k = 20, at which point the $L_1$ norm has the best accuracy. The $L_\infty$ norm consistently underperforms relative to its peers. With k = 1 and $L_2$ norms, this classifies at an accuracy of 0.8908.
 	
-	For the decision tree, we set aside 10\% of the training data as a validation set. To improve runtime and reduce noise, we consider only high variance features (features with the top 5\% variance).
+	For Bayes, we apply add-one Laplace smoothing and take the logarithms of the probabilities so as to prevent zero-frequency problems from occurring. This provided an accuracy of 0.9572.
+	
+	For the decision tree, we set aside 10\% of the training data as a validation set. To improve runtime and reduce noise, we consider only high variance features (features with the top 5\% variance). We built 50 trees of depths, 5, 10, ..., 250 and ran the validation set on them. The best prediction accuracy came from the tree with 15 layers, which classified the validation set with an accuracy of 0.8796.
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q6_fig/knn_k.png}	
+		\includegraphics[scale=.5]{q6_fig/dt_val.png}	
 		\caption{Prediction Accuracy vs. Decision Tree Depth}
 	\end{figure}
 	
+	Using this tree to classify our test set produced a prediction accuracy of 0.8724.
 		\begin{table}[H]
 	\centering
 	\caption{Performance of Classifiers}
 	\begin{tabular}{lr}
 		Classifier   & Accuracy \\
-		\textbf{MLE}   & 0.6415    \\
-		\textbf{KNN}   & 0.6895        \\
+		\textbf{KNN}   & 0.8908    \\
+		\textbf{Decision Tree}   & 0.8724        \\
 		\textbf{Bayes} & 0.9572
 	\end{tabular}
 	\end{table}
 	
-	
+	The best classifier is by far the Naive Bayes classifier, which outperforms both KNN and the 
 	
 
 
