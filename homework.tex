@@ -417,12 +417,6 @@ Thus, $L(t)$ across all $t \in g(\Omega) $ is maximized for $\theta_{ML} \in \{g
 		\caption{Prediction Accuracy vs. k with Different Norms}
 	\end{figure}
 
-	\begin{figure}[H]
-		\centering
-		\includegraphics[scale=.5]{q6_fig/performance_vs_p.png}	
-		\caption{Prediction Accuracy vs. p (using fixed k = 90)}
-	\end{figure}
-	
 	Here, the best accuracy can be found using an $L_2$ norm with k = 1. Generally, as k increases, accuracy decreases. The $L_2$ norm outperforms the other norms until k = 20, at which point the $L_1$ norm has the best accuracy. The $L_\infty$ norm consistently underperforms relative to its peers. With k = 1 and $L_2$ norms, this classifies at an accuracy of 0.8908.
 	
 	For Bayes, we apply add-one Laplace smoothing and take the logarithms of the probabilities so as to prevent zero-frequency problems from occurring. This provided an accuracy of 0.9572.
