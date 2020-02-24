@@ -7,5 +7,4 @@
 * Angela Wang (aw3062)
 
 ## To Do
-* Q1.2
-* Q5 graphs
+* Q6 learning curve!
