@@ -1,7 +1,7 @@
 *.aux
 *.cls
 *.log
-homework.pdf
-homework.synctex.gz
-.DS_Store
-.ipynb_checkpoints/Untitled-checkpoint.ipynb
+*homework.pdf
+*homework.synctex.gz
+*.DS_Store
+*.ipynb_checkpoints/Untitled-checkpoint.ipynb
