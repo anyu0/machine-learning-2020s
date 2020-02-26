@@ -4,4 +4,4 @@
 *homework.pdf
 *homework.synctex.gz
 *.DS_Store
-*.ipynb_checkpoints/Untitled-checkpoint.ipynb
+*.ipynb_checkpoints*
