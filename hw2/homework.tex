@@ -4,6 +4,8 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
 \coursename{COMS 4771 Machine Learning (Spring 2020)} 
 
@@ -11,13 +13,96 @@
 \studmail{aw3062@columbia.edu}
 \collab{Jane Pan (jp3740), Stan Liao (sl4239)}
 \hwNo{1}      
-\date{02/21/2020}  
+\date{02/28/2020}  
 \begin{document}
 \maketitle
 
 \section*{Problem 1} 
 \subsection*{(i)}
+	\begin{proof}
+		Let $y := \text{sign} \left(\sum_{i=1}^{r}x_{k_i}\right)$, $\vec{x} := (x_1,\dots,x_d)$.
+		A positive example makes a mistake when $y=1$ and $\hat{y}=0$. We know that
+		\begin{align*}
+			y=1 &\Longleftrightarrow \sum_{i=1}^{r}x_{k_i} \geq 1 \\
+			\hat{y}=0 &\Longleftrightarrow \sum_{k=1}^{d} w_k \cdot x_{k} \leq d \\
+			&\Longleftrightarrow \sum_{k: \,x_k=1} w_k  \leq d
+		\end{align*}
+		And that each update in $\vec{w}$ will result in
+		\begin{align*}
+			\sum_{k: \,x_k=1} w_k^{(t+1)}  = \sum_{k: \,x_k=1} 2w_k^{(t)},
+		\end{align*}
+		until the program moves to the next example when $\sum_{k: \,x_k=1} w_k  > d$. 
+		In the worst case, $\sum_{k: \,x_k=1} w_k$ should increase as slow as possible.
+		We thus only consider examples with $\sum_{i=1}^{r}x_{k_i}=\sum_{k=1}^{d} x_{k}=1$.
+		In other words, examples $\vec{x}$ that have only one non-zero field, 
+		which is in one of the fields selected by the OR operation.
+		There are in total $r$ examples we should consider.\\
+		For each example $\vec{x}$, $\exists i $ such that $x_{k_i} = 1$. 
+		The condition for making a mistake is therefore written as
+		\begin{align*}
+			w_{k_i}  &\leq d
+		\end{align*}
+		Let $T$ be the minimum number of steps required to pass this type of example. 
+		Since $w_{k_i} ^{(0)} = 1$ and $w_{k_i} ^{(t+1)} = 2w_{k_i} ^{(t)} $, we have
+		\begin{align*}
+			w_{k_i}^{(T)} =  2^T w_{k_i}^{(0)} =  2^T \leq d \\
+			T\leq \ceil{\log{d}} < \log{d}+1
+		\end{align*}
+		Since there are at most $r$ examples with $x_{k_i} = 1$ and $x_k = 0$ $\forall k \neq k_i$. 
+		The total number of steps required should be at most $rT \leq r(\log{d} + 1)$.
+		Upon seeing other positive examples, there will be no more mistakes, since $\vec{w}\cdot\vec{x}$ will always be greater than $d$.
+	\end{proof}
 
+\subsection*{(ii)}
+	\begin{proof}
+		A negative example makes a mistake when $y=0$ and $\hat{y}=1$. We know that
+		\begin{align*}
+			y=0 &\Longleftrightarrow \sum_{i=1}^{r}x_{k_i} = 0 \\
+			\hat{y}=1 &\Longleftrightarrow \sum_{k=1}^{d} w_k \cdot x_{k} > d \\
+			&\Longleftrightarrow \sum_{k: \,x_k=1} w_k  > d
+		\end{align*}
+		And that each update in $\vec{w}$ will result in
+		\begin{align*}
+			\sum_{k: \,x_k=1} w_k^{(t+1)}  &= \sum_{k: \,x_k=1} \frac{1}{2}w_k^{(t)}
+			= \frac{1}{2} \sum_{k: \,x_k=1} w_k^{(t)}  \\
+			\sum_{k: \,x_k=0} w_k^{(t+1)}& = \sum_{k: \,x_k=0} w_k^{(t+1)}
+		\end{align*}
+		Therefore,
+		\begin{align*}
+			\sum_{k=1}^d w_k^{(t+1)}-\sum_{k=1}^d w_k^{(t)}  
+			= \frac{1}{2} \sum_{k: \,x_k=1} w_k^{(t)}
+			> \frac{d}{2}
+		\end{align*}
+	\end{proof}
 
+\subsection*{(iii)}
+	\begin{proof}
+		Since $w_k = 1$ $\forall k = 1,\dots, d$, and each update in $\vec{w}$ multiplies its fields by a positive constant,
+		we know that
+		\begin{align*}
+			\sum_{k=1}^d w_k ^{(t)} > 0
+		\end{align*}
+		We observe that each mistake made on a positive example increases the total weight by at most $d$, since
+		\begin{align*}
+			\sum_{k: \,x_k=1} w_k^{(t+1)}  &= \sum_{k: \,x_k=1} 2w_k^{(t)} \\
+			\sum_{k: \,x_k=0} w_k^{(t+1)}  &= \sum_{k: \,x_k=0} w_k^{(t)} \\
+			\sum_{k=1}^d w_k^{(t+1)}-\sum_{k=1}^d w_k^{(t)} &=   \sum_{k: \,x_k=1} w_k^{(t)} \leq d
+		\end{align*}
+		The accumulated change after $t$ iterations in the total weight is 
+		\begin{align*}
+			\sum_{k=1}^d w_k ^{(t)} -\sum_{k=1}^d w_k ^{(0)} \leq d M_+ -\frac{d}{2} M_-
+		\end{align*}
+		And we have 
+		\begin{align*}
+			0<\sum_{k=1}^d w_k ^{(t)} &\leq  \sum_{k=1}^d w_k ^{(0)}  +d M_+ -\frac{d}{2} M_- \\
+			0&<d+ d M_+ -\frac{d}{2} M_-\\
+			0&<1+  M_+ -\frac{1}{2} M_-\\
+			M_- &<2+  2M_+
+		\end{align*}
+		Thus, we can write
+		\begin{align*}
+			M_+ + M_-  < 2+ 3M_+< 2+3r(\log{d}+1)
+		\end{align*}
+	\end{proof}
 
 \end{document} 
