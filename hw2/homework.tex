@@ -92,7 +92,7 @@
 		\begin{align*}
 			\sum_{k=1}^d w_k ^{(t)} -\sum_{k=1}^d w_k ^{(0)} \leq d M_+ -\frac{d}{2} M_-
 		\end{align*}
-		And we have 
+		And we have 1
 		\begin{align*}
 			0<\sum_{k=1}^d w_k ^{(t)} &\leq  \sum_{k=1}^d w_k ^{(0)}  +d M_+ -\frac{d}{2} M_- \\
 			0&<d+ d M_+ -\frac{d}{2} M_-\\
@@ -104,5 +104,140 @@
 			M_+ + M_-  < 2+ 3M_+< 2+3r(\log{d}+1)
 		\end{align*}
 	\end{proof}
+
+\section{Problem 4}
+\subsection{a}
+\begin{align*}
+	g(t) &= f(tx+(1-t)y)\\
+	g'(t) &= (x-y) \frac{d}{dt} f(tx+(1-t)y)\\
+	g''(t) &= (x-y)^2\frac{d^2}{dt^2} f(tx+(1-t)y)\\
+\end{align*}
+\section{Problem 5}
+Notes for me, will delete later:
+
+Papers used: https://arxiv.org/pdf/1609.04747.pdf
+
+
+"Describe each of the techniques in detail. Compare and contrast the relative advantages and
+disadvantages of each of the techniques. Are there specific types of datasets where one technique is expected to perform better than the other? if so, why? Provide detailed justifications
+for each."
+\subsection{Full Gradient Descent}
+Full gradient descent adjusts the parameters of the model after computing the gradient of the cost function using the following formula:
+
+\begin{align*}
+	\theta &= \theta - \eta \nabla_\theta J(\theta)
+\end{align*}
+
+Here, $\theta$ are the parameters of the model and $\eta$ is the learning rate. The learning rate controls how much the parameters are changed per update according to the gradient Note that the gradients are calculated for the entire dataset for each update.
+
+\begin{enumerate}
+	\item Advantages: GD is guaranteed to converge to a minimum (global if the error surface is convex and local otherwise).
+	\item Disadvantages: GD is extremely slow since the gradient must be calculated for the entire dataset for a single update. This means GD is unsuited for very large datasets (especially those that cannot be stored in memory). Moreover, since the entire original dataset must be used to perform updates in GD, new data cannot be added on the fly during training. Also, since the learning rate is chosen and fixed for all parameters, it is difficult to to chose a rate that is neither too small (leading to slow convergence) or too fast (leading to fluctuation around minima or failure to converge) for all parameters. This is particularly difficult when there are many parameters; a common learning rate may make the algorithm take steps that are too big in one dimension (if the contour is steep in that direction), yet are too small in other dimensions (where the contour is relatively flat). If the error surface has many local minima, the error function may be "stuck" in a local minima and will fail to converge to the optimum solution. 
+	\item Best used for: Smaller datasets for which the model does not need to be updated online. This is because GD will run too slowly with larger datasets and cannot account for online updates. 
+\end{enumerate}
+
+\subsection{Stochastic Gradient Descent}
+Stochastic gradient descent (SGD) adjusts the parameters of the model after computing the gradient of the cost function after each point:
+
+\begin{align*}
+	\theta = \theta - \eta \nabla_\theta J(\theta; x^{(i)}; y^{(i)})
+\end{align*}
+Stochastic gradient descent uses one data point to compute the gradient. Mini-batch gradient descent will use a small sample of multiple points to compute the gradient.
+\begin{enumerate}
+	\item Advantages: Since the gradients are noisier than that of full batch GD, this is better suited to error surfaces with many local minima since the model may "jump" out of ravines. Since you compute gradients for much fewer points, SGD runs a lot faster than GD. Also, smaller data sets means that there is no need for the entire dataset to be stored in RAM.
+	\item Disadvantages: Has the same fallbacks of a fixed learning rate as vanilla GD. Moreover, SGD's weakness lies when the surface curves steeply in one dimension but not steeply in another, forming a ravine or valley-like contour. This will cause the algorithm to "jump" from wall to wall of the ravine while making slow progress along it.
+	\item Best used for:
+\end{enumerate}
+
+\subsection{Stochastic Gradient Descent with Momentum}
+Stochastic Gradient Descent with Momentum (SGDM) seeks to alleviate the issues caused by ravines in standard SGD by introducing a momentum component. 
+
+\begin{align*}
+	v_t &= \gamma v_{t-1} + \eta \nabla_\theta J(\theta)\\
+	\theta &= \theta - v_t
+\end{align*}
+Here, $v_t$ is the update vector which we use to adjust $\theta$ after each iteration. Momentum adds a fraction (the momentum term $\gamma$) of the previous update vector to the current update vector. This means that a dimension of the current update vector is increased when if the direction of the dimension in the current gradient is the same of that in previous gradient. Likewise, it is decreased if the directions are opposite. 
+
+
+\begin{enumerate}
+	\item Advantages: Is better suited than SGD to an error surface with ravines.
+	\item Disadvantages: Has the same fallbacks of a fixed learning rate as vanilla GD.
+	\item Best used for: Datasets whose error manifolds form ravines.
+\end{enumerate}
+
+\subsection{Adaptive Gradient}
+Adaptive gradient (AdaGrad), as its name suggests, adapts the learning rate $\eta$ to each parameter. Common parameters are updated with smaller steps, whereas infrequent parameters are updated with bigger steps.
+
+\begin{align*}
+	\theta_{t+1} = \theta_{t} - \frac{\eta}{\sqrt[]{G_{t}+\epsilon}} \nabla_{\theta_t} J(\theta_{t})\\
+	G_{ii} = \sum^t_{k=1} (\nabla_{\theta_k} J(\theta_{t, i}))^2
+\end{align*}
+
+Here, parameter $\theta_i$ is updated with value $\theta_{t+1, i}$ at time $t+1$. $G_t, ii$ is a diagonal matrix with each diagonal term being the sum of the squares of all past gradients. $\epsilon$ is a smoothing term to prevent division by zero.
+ 
+
+%https://web.archive.org/web/20150330033637/http://seed.ucsd.edu/mediawiki/images/6/6a/Adagrad.pdf
+\begin{enumerate}
+	\item Advantages: Very useful for sparse data; the G matrix ensures that when uncommon parameters are present, the step size is large in those dimensions, meaning that the model will rapidly adjust even if not much of the data displays that parameter.
+	\item Disadvantages: Since gradients are squared and summed, the values in $G_t$ are monotonically increasing. Therefore, since we divide $\eta$ by $G_t$ and the values in $G_t$ continue to grow, eventually the learning rate will shrink to very small values. This will mean that the algorithm's update will barely change the parameters and the algorithm will barely learn more.
+	\item Best used for: sparse datasets for the reasons explained above.
+\end{enumerate}
+\subsection{RMSProp}
+RMSProp (root mean square propagation) is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning rate. 
+
+\begin{align*}
+	E[g^t]_t &= \gamma E[g^t]_{t-1} + (1-\gamma)g^2_t\\
+	\theta_{t+1} &= \theta_t - \frac{\eta}{\sqrt[•]{E[g^2]_t+\epsilon}} g_t
+\end{align*}
+
+RMSProp introduces a term similar to that of the momentum term in SGDM. Here, we divide the learning rate by an exponentially decaying average of the squared gradients. This prevents a situation like the G-matrix we saw earlier (i.e. the learning rate becoming increasingly smaller until the algorithm makes negligible adjustments with each iteration).
+
+\begin{enumerate}
+	\item Advantages: Moreover, learning rate is no longer monotonically decreasing, so no need to worry about the algorithm eventually failing to learn.
+	\item Disadvantages:
+	\item Best used for:
+\end{enumerate}
+\subsection{AdaDelta}
+AdaDelta, like RMSProp, is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning  rate. It is indeed very similar to RMSProp. In fact, the only difference between them is the usage of the root mean square of the parameter updates, rather than a preset $\eta$. We use $g$ as a shorthand for the gradient at time step $t$, and $E[g^2]_t$ as the running decaying average of the past squared gradients.
+
+\begin{align*}
+	g_t &= \nabla_{\theta_t} J(\theta_{t, i})\\
+	\theta_{t+1} &= \theta_t + \delta \theta_t\\
+	E[g^2]_t &= \gamma E[g^2]_{t-1} + (1-\gamma)g^2_t \\
+	E[\Delta \theta^2]_t &= \gamma E[\Delta \theta^2]_{t-1} + (1-\gamma)(\Delta \theta)^2_t \\
+	RMS[g]_t &= \sqrt[•]{E[g^2]_t+\epsilon}\\
+	RMS[\Delta \theta]_t &= \sqrt[•]{E[\Delta \theta^2]_t+\epsilon}\\
+	\theta_{t+1} &= \theta_t - \frac{RMS[\Delta \theta]_{t-1}}{RMS[g]_t} g_t\\
+\end{align*}
+
+The reason why we take the 
+\begin{enumerate}
+	\item Advantages: No need to set default learning rate since it is no longer a component of the update rule; solves the monotonically decreasing learning rate problem presented by AdaGrad.
+	\item Disadvantages:
+	\item Best used for:
+\end{enumerate}
+\subsection{Adaptive Moment Estimation}
+Adaptive Moment Estimation (ADAM), like AdaGrad, is a method which uses adaptive learning rates rather than a fixed one. Like Adadelta, ADAM maintains a exponentially decaying average of square gradients, but also adds an exponentially decaying average of past (unsquared) gradients. This acts in a similar fashion to momentum.
+
+\begin{align*}
+	m_0 &= 0\\
+	v_0 &= 0\\
+	m_t &= \beta_1 m_{t-1}+(1-\beta_1)g_t\\
+	v_t &= \beta_2 v_{t-1}+(1-\beta_2)g^2_t\\
+\end{align*} 
+
+Since the vectors are initialized at zero, $m_t$ and $v_t$ will be biased towards zero, so we use bias-corrected estimates instead:
+
+\begin{align*}
+	\hat{m_t} &= \frac{m_t}{1-\beta^t_1}\\
+	\hat{v_t} &= \frac{v_t}{1-\beta^t_2}\\
+	\theta_{t+1} &= \theta_t - \frac{\eta}{\sqrt[•]{\hat{v}_t+\epsilon}}\hat{m}_t
+\end{align*}
+
+\begin{enumerate}
+	\item Advantages:
+	\item Disadvantages:
+	\item Best used for:
+\end{enumerate}
 
 \end{document} 
