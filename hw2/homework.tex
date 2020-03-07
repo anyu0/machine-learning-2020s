@@ -173,7 +173,7 @@ Adaptive gradient (AdaGrad), as its name suggests, adapts the learning rate $\et
 	G_{ii} = \sum^t_{k=1} (\nabla_{\theta_k} J(\theta_{t, i}))^2
 \end{align*}
 
-Here, parameter $\theta_i$ is updated with value $\theta_{t+1, i}$ at time $t+1$. $G_t, ii$ is a diagonal matrix with each diagonal term being the sum of the squares of all past gradients. $\epsilon$ is a smoothing term to prevent division by zero.
+Here, parameter $\theta_i$ is updated with value $\theta_{t+1, i}$ at time $t+1$. $G_{t, ii}$ is a diagonal matrix with each diagonal term being the sum of the squares of all past gradients. $\epsilon$ is a smoothing term to prevent division by zero.
  
 
 %https://web.archive.org/web/20150330033637/http://seed.ucsd.edu/mediawiki/images/6/6a/Adagrad.pdf
@@ -186,7 +186,7 @@ Here, parameter $\theta_i$ is updated with value $\theta_{t+1, i}$ at time $t+1$
 RMSProp (root mean square propagation) is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning rate. 
 
 \begin{align*}
-	E[g^t]_t &= \gamma E[g^t]_{t-1} + (1-\gamma)g^2_t\\
+	E[g^2]_t &= \gamma E[g^2]_{t-1} + (1-\gamma)g^2_t\\
 	\theta_{t+1} &= \theta_t - \frac{\eta}{\sqrt[•]{E[g^2]_t+\epsilon}} g_t
 \end{align*}
 
@@ -240,4 +240,12 @@ Since the vectors are initialized at zero, $m_t$ and $v_t$ will be biased toward
 	\item Best used for:
 \end{enumerate}
 
+\begin{proof}[Proof]
+Let $\hat{\eta}$ denote the value that maximizes $L^*(\eta | \textbf{x})$. We must show that $L^*(\hat{\eta} | \textbf{x})=L^*[\tau(\hat{\theta} | \textbf{x}]$.
+Now, as stated above, the maxima of $L$ and $L^*$ coincide, so we have:
+\[ L^*(\hat{\eta} | \textbf{x})=\sup_{\eta}\sup_{\{\theta :\tau (\theta)=\eta\}}L(\theta | \textbf{x})=\sup_{\theta} L(\theta | \textbf{x})=L(\hat{\theta} | \textbf{x}) \]
+where the second equality follows because the iterated maximiazation is equal to the unconditional maximization over $\theta$, which is attained at $\hat{\theta}$. Furthermore
+\[ L(\hat{\theta} | \textbf{x}) = \sup_{\{\theta :\tau (\theta)=\tau{\hat{\theta}}\}} L(\theta | \textbf{x}) = L^*[\tau(\hat{\theta}) | \textbf{x}]. \]
+Hence, the string of equalities shows that $L^*(\hat{\eta} | \textbf{x}) = L^*(\tau(\hat{\theta}) | \textbf{x})$ and that $\tau(\hat{\theta})$ is the MLE of $\tau(\theta)$.
+\end{proof}
 \end{document} 
