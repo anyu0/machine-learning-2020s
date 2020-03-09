@@ -654,7 +654,9 @@ The results here match those from above; that is, GD is once again the slowest b
 		\includegraphics[scale=0.5]{q6/img/learning_ker.png}
 	\end{figure}
 	As we change the degree of polynomial, $p$, the accuracy of Kernel Perception decreases compared to smaller values
-	such as $p=2$, because of overfitting.
+	such as $p=2$. The performance spikes around 7,  mainly because the performance of the kernel perceptron on the digit 4 is 
+	high at p=7, thus improving the average. Considering that the accuracy does not fluctuate too much around the accuracy 0.845,
+	we choose $p=2$ as the optimal degree of polynomial for our problem.
 	\begin{figure}[H]
 		\includegraphics[scale=0.5]{q6/img/degree_ker.png}
 		\includegraphics[scale=0.5]{q6/img/degree_ker_all.png}
