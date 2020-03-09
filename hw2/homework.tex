@@ -387,7 +387,7 @@ Thus we have shown that:
 This matches the definition of convexity, and so g is convex.
 \end{proof}
 \section{Problem 5}
-\subsubsection{Full Gradient Descent}
+\subsubsection*{Full Gradient Descent}
 
 Full gradient descent adjusts the parameters of the model after computing the gradient of the cost function using the following formula:
 
@@ -502,9 +502,9 @@ Since the vectors are initialized at zero, $m_t$ and $v_t$ will be biased toward
 \end{align*}
 
 \begin{enumerate}
-	\item Advantages:
-	\item Disadvantages:
-	\item Best used for:
+	\item Advantages: Because Adam is a combination of SGD and RMSProp with momentum, Adam works well with sparse gradients and on-line settings. Adam tends to be significantly faster and more powerful than other methods.
+	\item Disadvantages: Because Adam is adaptive, it generalizes poorly, especially compared to SGD with momentum when tested on a diverse set of deep learning tasks. Due to its poor generalization, it may fail to converge to an optimal solution. One possible cause is that Adam's learning saturates in later stages of training. The updates of Adam, unlike in SGD, do not lie in the span of historical gradients. Additionally, while the magnitudes of Adam parameter updates are invariant to descaling of the gradient, the effect of the updates on the same overall network function still varies with the magnitudes of parameters.
+	\item Best used for: areas with tiny gradients (e.g. saddle points, ravines) because the step size of Adam update rule is invariant to the magnitude of the gradient. Adam is also good for sparse gradients (advantage of Adagrad incorporated by Adam), and in on-line settings (advantage of RMSProp).
 \end{enumerate}
 
 \subsection*{(b)}
