@@ -112,6 +112,85 @@
 	g'(t) &= (x-y) \frac{d}{dt} f(tx+(1-t)y)\\
 	g''(t) &= (x-y)^2\frac{d^2}{dt^2} f(tx+(1-t)y)\\
 \end{align*}
+
+\subsection{b}
+\begin{proof}
+Taylor's theorem states that if a function and its first n derivatives are continuous on $[a, b]$ or $[b, a]$ (with $f^{(n)}$ differentiable on $(a, b)$ or $(b, a)$, then $\exists$ c s.t.:
+
+\begin{align*}
+	f(b) = f(a)+f'(a)(b-a)+\frac{f''(a)}{2!}(b-a)^2 +...+\frac{f^{(n)}(a)}{n!}(b-a)^n+\frac{f^{(n+1)}(c)}{(n+1)!}(b-a)^{n+1}
+\end{align*}
+
+Letting $b = 0$, $a = t$, $n=1$, and $c \in (0, t)$:
+
+\begin{align*}
+	g(0) &= g(t) + g'(t)(0-t)+\frac{g^{(1+1)(c)}}{2}(0-t)^{1+1}\\
+	g(0)&= g(t) + g'(t)(0-t)+\frac{g''(c)}{2}(0-t)^{2}\\
+	g(0)-(g(t) + g'(t)(-t)) &= \frac{g''(c)}{2}(-t)^{2}\\
+	g(0)-(g(t) + g'(t)(-t)) &= \frac{g''(c)}{2}t^{2}\\
+\end{align*}
+
+From part (a) we know that $\forall c \in (0, 1)$, $g''(c) \geq 0$; also, $t^2 \geq 0$. Thus:
+
+\begin{align*}
+	g(0)-(g(t) + g'(t)(-t)) &\geq 0\\
+	g(0)&\geq g(t) + g'(t)(-t)\\
+\end{align*}
+
+Similarly, for $b = 1$:
+
+\begin{align*}
+	g(1) &= g(t) + g'(t)(1-t)+\frac{g^{(1+1)(c)}}{2}(1-t)^{1+1}\\
+	g(1)&= g(t) + g'(t)(1-t)+\frac{g''(c)}{2}(1-t)^{2}\\
+	g(1)-(g(t) + g'(t)(-t)) &= \frac{g''(c)}{2}(1-t)^{2}\\
+	g(1)-(g(t) + g'(t)(-t)) &= \frac{g''(c)}{2}(1-t)^{2}\\
+\end{align*}
+
+From part (a) we know that $\forall c \in (0, 1)$, $g''(c) \geq 0$; also, $(1-t)^2 \geq 0$. Thus:
+
+\begin{align*}
+	g(1)-(g(t) + g'(t)(1-t)) &\geq 0\\
+	g(1)&\geq g(t) + g'(t)(1-t)\\
+\end{align*}	
+\end{proof}
+
+\subsection{c}
+\begin{proof}
+	We are given that $g = f(tx+(1-t)y)$. Thus, if f is convex (i.e. $f(tx+(1-t)y)\leq tf(x)+(1-t)f(y)$), this implies that g is also convex.
+	
+	We note that:
+	\begin{align*}
+		g(0) &= f(y)\\
+		g(1) &= f(x)\\
+	\end{align*}
+	
+	Plugging this into the convexity condition for f gives:
+	
+	\begin{align*}
+		f(tx+(1-t)y)&\leq tf(x)+(1-t)f(y)\\
+		g(t)&\leq tg(1)+(1-t)g(0)\\
+	\end{align*}
+	
+	Now recall the inequalities given in part (ii):	
+	\begin{align*}
+	g(0) &\geq g(t) + g'(t)(-t)\\
+	g(1) &\geq g(t) + g'(t)(1-t)\\
+	\end{align*}
+	
+We multiply by $1-t$ and $t$, respectively, and then add:
+
+	\begin{align*}
+	(1-t)g(0)+tg(1)&\geq (1-t)[g(t) + (1-t)g'(t)(-t)]+t[g(t) + g'(t)(1-t)]\\
+	 &\geq g(t) -t(1-t)g'(t)+ t(1-t)g(t)\\
+	 &\geq g(t)\\
+	\end{align*}
+	
+Thus, we have shown that:
+\begin{align*}
+	g(t)&\leq tg(1)+(1-t)g(0)\\
+	f(tx+(1-t)y)&\leq tf(x)+(1-t)f(y)\\
+\end{align*}
+\end{proof}
 \section{Problem 5}
 Notes for me, will delete later:
 
