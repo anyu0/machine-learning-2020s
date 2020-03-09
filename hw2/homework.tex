@@ -230,14 +230,14 @@ section*{Problem 2}
 
 
 \section{Problem 4}
-\subsection{a}
+\subsection*{a}
 \begin{align*}
 	g(t) &= f(tx+(1-t)y)\\
 	g'(t) &= (x-y) \frac{d}{dt} f(tx+(1-t)y)\\
 	g''(t) &= (x-y)^2\frac{d^2}{dt^2} f(tx+(1-t)y)\\
 \end{align*}
 
-\subsection{b}
+\subsection*{b}
 \begin{proof}
 Taylor's theorem states that if a function and its first n derivatives are continuous on $[a, b]$ or $[b, a]$ (with $f^{(n)}$ differentiable on $(a, b)$ or $(b, a)$, then $\exists$ c s.t.:
 
@@ -278,7 +278,7 @@ From part (a) we know that $\forall c \in (0, 1)$, $g''(c) \geq 0$; also, $(1-t)
 \end{align*}	
 \end{proof}
 
-\subsection{c}
+\subsection*{c}
 \begin{proof}
 	We are given that $g = f(tx+(1-t)y)$. Thus, if f is convex (i.e. $f(tx+(1-t)y)\leq tf(x)+(1-t)f(y)$), this implies that g is also convex.
 	
@@ -324,7 +324,7 @@ Papers used: https://arxiv.org/pdf/1609.04747.pdf
 "Describe each of the techniques in detail. Compare and contrast the relative advantages and
 disadvantages of each of the techniques. Are there specific types of datasets where one technique is expected to perform better than the other? if so, why? Provide detailed justifications
 for each."
-\subsubsection{Full Gradient Descent}
+\subsubsection*{Full Gradient Descent}
 Full gradient descent adjusts the parameters of the model after computing the gradient of the cost function using the following formula:
 
 \begin{align*}
@@ -339,7 +339,7 @@ Here, $\theta$ are the parameters of the model and $\eta$ is the learning rate. 
 	\item Best used for: Smaller datasets for which the model does not need to be updated online. This is because GD will run too slowly with larger datasets and cannot account for online updates. 
 \end{enumerate}
 
-\subsubsection{Stochastic Gradient Descent}
+\subsubsection*{Stochastic Gradient Descent}
 Stochastic gradient descent (SGD) adjusts the parameters of the model after computing the gradient of the cost function after each point:
 
 \begin{align*}
@@ -352,7 +352,7 @@ Stochastic gradient descent uses one data point to compute the gradient. Mini-ba
 	\item Best used for: Large datasets which are too big to keep in RAM in one instance. This is because SGD computes gradients for only one point at a time; thus, only one point needs to be kept in memory at any given time. Less passes are needed since the weights are adjusted after each computation of the gradient, making it much faster than GD.
 \end{enumerate}
 
-\subsubsection{Stochastic Gradient Descent with Momentum}
+\subsubsection*{Stochastic Gradient Descent with Momentum}
 Stochastic Gradient Descent with Momentum (SGDM) seeks to alleviate the issues caused by ravines and noise in standard SGD by introducing a momentum component. 
 
 \begin{align*}
@@ -368,7 +368,7 @@ Here, $v_t$ is the update vector which we use to adjust $\theta$ after each iter
 	\item Best used for: Datasets whose error manifolds form ravines, as well as large and/or noisier datasets (as explained above in SGD).
 \end{enumerate}
 
-\subsubsection{Adaptive Gradient}
+\subsubsection*{Adaptive Gradient}
 Adaptive gradient (AdaGrad), as its name suggests, adapts the learning rate $\eta$ to each parameter. Common parameters are updated with smaller steps, whereas infrequent parameters are updated with bigger steps.
 
 \begin{align*}
@@ -385,7 +385,7 @@ Here, parameter $\theta_i$ is updated with value $\theta_{t+1, i}$ at time $t+1$
 	\item Disadvantages: Since gradients are squared and summed, the values in $G_t$ are monotonically increasing. Therefore, since we divide $\eta$ by $G_t$ and the values in $G_t$ continue to grow, eventually the learning rate will shrink to very small values. This will mean that the algorithm's update will barely change the parameters and the algorithm will barely learn more.
 	\item Best used for: sparse datasets for the reasons explained above.
 \end{enumerate}
-\subsubsection{RMSProp}
+\subsubsection*{RMSProp}
 RMSProp (root mean square propagation) is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning rate. 
 
 \begin{align*}
@@ -401,7 +401,7 @@ RMSProp introduces a term similar to that of the momentum term in SGDM. Here, we
 	\item Best used for: sparse datasets for the same reasons as above.
 \end{enumerate}
 
-\subsubsection{AdaDelta}
+\subsubsection*{AdaDelta}
 AdaDelta, like RMSProp, is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning  rate. It is indeed very similar to RMSProp. In fact, the only difference between them is the usage of the root mean square of the parameter updates, rather than a preset $\eta$. We use $g$ as a shorthand for the gradient at time step $t$, and $E[g^2]_t$ as the running decaying average of the past squared gradients. 
 
 \begin{align*}
@@ -423,7 +423,7 @@ The reason why we take the
 	\item Disadvantages: Moving averages are biased by initialization of decay parameters.
 	\item Best used for: AdaDelta is generally good with saddle points; because it is derived from AdaGrad, it's good with sparse data sets. 
 \end{enumerate}
-\subsubsection{Adaptive Moment Estimation}
+\subsubsection*{Adaptive Moment Estimation}
 Adaptive Moment Estimation (ADAM), like AdaGrad, is a method which uses adaptive learning rates rather than a fixed one. Like Adadelta, ADAM maintains a exponentially decaying average of square gradients, but also adds an exponentially decaying average of past (unsquared) gradients. This acts in a similar fashion to momentum.
 
 \begin{align*}
@@ -447,7 +447,7 @@ Since the vectors are initialized at zero, $m_t$ and $v_t$ will be biased toward
 	\item Best used for:
 \end{enumerate}
 
-\subsection{(b)}
+\subsection*{(b)}
 To investigate the performance of these seven methods, we classified two-dimensional data into two classes using a logistic regression. We generated four different datasets: small (100 points) and linearly separable; small and linearly inseparable; large (10,000 points) and linearly separable; and large and linearly inseparable. Datasets were split into train and test components. We then analyzed performance in three areas:
 
 \begin{enumerate}
@@ -460,7 +460,7 @@ For our parameters, we chose our learning rate to be $0.005$ (except for RMSProp
 
 We defined convergence as a change in cost less than .25\% the previous change, or a change in cost less than 0.0001 -- whichever comes first.
 
-\subsubsection{Small, linearly separable dataset}
+\subsubsection*{Small, linearly separable dataset}
 Here, we randomly generated 100 points in separate blobs, ensuring that they were linearly separable. 
 \begin{figure}[H]
 		\centering
@@ -504,7 +504,7 @@ Interestingly, we see here that all methods produce perfect classification even 
 Here, the results we expect given our conclusions in (ii) are clear. Adagrad takes much longer to converge than other methods, due to the weaknesses of its learning rate definition. GD also takes a long time, since its update rate is so slow. All other methods converge much faster (~50 iterations).
 	
 
-\subsubsection{Small, linearly inseparable dataset}
+\subsubsection*{Small, linearly inseparable dataset}
 Here, we randomly generated 100 points in separate blobs, ensuring that they were linearly inseparable. 
 \begin{figure}[H]
 		\centering
@@ -538,7 +538,7 @@ Here, the prediction accuracies show Adagrad consistently lagging behind its pee
 	
 The graph above shows a drastic change from that of the small LS dataset. Here, GD is by far the slowest to converge. Adagrad and SGD, though faster in comparison to GD, are stll slower than the other four methods. As previously mentioned, Adagrad's decreasing learning rate reduces speed of learning; here, SGD's unstable convergence means that it is slower to converge than SGDM, which is better able to handle this comparatively noisier dataset. As expected, RMSProp, Adadelta, and Adam are faster than Adagrad since their adjustments are built to prevent the loss of learning that Adagrad suffers.
 	
-\subsubsection{Large, linearly separable dataset}
+\subsubsection*{Large, linearly separable dataset}
 Here, we randomly generated 10,000 points in separate blobs, ensuring that they were linearly separable. 
 
 \begin{figure}[H]
@@ -573,7 +573,7 @@ Here, the results from the prediction accuracy match what we would expect given 
 	
 The results here match those of the small LS dataset. The GD takes the longest to converge by far, with Adagrad a second. Meanwhile, all other methods converge with far fewere iterations, with RMSProp, Adadelta, and Adagrad vastly improving on Adagrad's convergence speed.
 
-\subsubsection{Large, linearly inseparable dataset}
+\subsubsection*{Large, linearly inseparable dataset}
 Here, we randomly generated 10,000 points in separate blobs, ensuring that they were linearly inseparable. 
 
 \begin{figure}[H]
@@ -614,11 +614,9 @@ Here, the prediction accuracy shows GD predicting poorly; even at the end of 400
 	\end{figure}
 	
 The results here match those from above; that is, GD is once again the slowest by far, with Adagrad as second slowest. The other methods converge extremely quickly in comparison.
-\end{document} 
-
 
 \section*{Problem 6}
-	\subsection*{(ii)}
+\subsection*{(ii)}
 	The Perceptron Algorithm performs differently under different splits of the dataset. From the plots, we choose
 	the ration of training data to be 0.80, 0.75, and 0.85, for V0, V1, V2 respectively.
 	\begin{figure}[H]
