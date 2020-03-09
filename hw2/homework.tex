@@ -109,14 +109,57 @@
 	\end{proof}
 
 \section{Problem 4}
-\subsection{a}
+\subsection{(i)}
+
+Let $\vec(z) = t\vec{x} +(1-t)\vec{y}$. We take derivative with respect to t:
 \begin{align*}
 	g(t) &= f(tx+(1-t)y)\\
-	g'(t) &= (x-y) \frac{d}{dt} f(tx+(1-t)y)\\
-	g''(t) &= (x-y)^2\frac{d^2}{dt^2} f(tx+(1-t)y)\\
+	\frac{dg(t)}{dt} &= \frac{\delta f }{\delta \vec{z}} \frac{d\vec{z}}{dt}\\	
+	&=\begin{pmatrix}
+\frac{\delta f_1}{\delta z_1} & \cdots & \frac{\delta f_1}{\delta z_d} \\
+\vdots  & \vdots  &  \vdots  \\
+\frac{\delta f_d}{\delta z_1} & \cdots & \frac{\delta f_d}{\delta z_d}
+\end{pmatrix} \begin{pmatrix}
+\frac{\delta z_1}{\delta t}\\
+\vdots \\
+\frac{\delta z_d}{\delta t}
+\end{pmatrix}\\
+&= \begin{pmatrix}
+\frac{\delta \vec{f}}{\delta z_1} & \cdots & \frac{\delta \vec{f}}{\delta z_d}
+\end{pmatrix}(\vec{x}-\vec{y})\\
 \end{align*}
 
-\subsection{b}
+
+Now we take the derivative with respect to t again:
+
+\begin{align*}
+	\frac{d^2g(t)}{dt^2}
+	&=\begin{pmatrix}
+\frac{d}{d\vec{z}}\frac{\delta f_1}{\delta z_1}\frac{d\vec{z}}{dt} & \cdots & \frac{d}{d\vec{z}}\frac{\delta f_1}{\delta z_d}\frac{d\vec{z}}{dt} \\
+\vdots  & \vdots  &  \vdots  \\
+\frac{d}{d\vec{z}}\frac{\delta f_d}{\delta z_1} & \cdots & \frac{d}{d\vec{z}}\frac{\delta f_d}{\delta z_d}\frac{d\vec{z}}{dt}
+\end{pmatrix} (\vec{x}-\vec{y})\\
+\end{align*}
+
+
+Thus we find that:
+\begin{align*}
+	g''(t) &=(\vec{x}-\vec{y})^TH(\vec{f})(\vec{x}-\vec{y})
+\end{align*}
+
+By definition of positive semidefinitive matrix, if a matrix M s positive semidefinite then, then for vector z:
+
+\begin{align*}
+	z^TMz \geq 0
+\end{align*}
+
+We are given that f's Hessian is positive semidefinite. Thus:
+
+\begin{align*}
+	g''(t) &=(\vec{x}-\vec{y})^TH(\vec{f})(\vec{x}-\vec{y}) \geq 0
+\end{align*}
+
+\subsection{(ii)}
 \begin{proof}
 Taylor's theorem states that if a function and its first n derivatives are continuous on $[a, b]$ or $[b, a]$ (with $f^{(n)}$ differentiable on $(a, b)$ or $(b, a)$, then $\exists$ c s.t.:
 
@@ -157,7 +200,7 @@ From part (a) we know that $\forall c \in (0, 1)$, $g''(c) \geq 0$; also, $(1-t)
 \end{align*}	
 \end{proof}
 
-\subsection{c}
+\subsection{(iii)}
 \begin{proof}
 	We are given that $g = f(tx+(1-t)y)$. Thus, if f is convex (i.e. $f(tx+(1-t)y)\leq tf(x)+(1-t)f(y)$), this implies that g is also convex.
 	
@@ -190,19 +233,36 @@ We multiply by $1-t$ and $t$, respectively, and then add:
 	
 Thus, we have shown that:
 \begin{align*}
-	g(t)&\leq tg(1)+(1-t)g(0)\\
 	f(tx+(1-t)y)&\leq tf(x)+(1-t)f(y)\\
 \end{align*}
+
+Let us show that g is convex. Then for $m, n \in \mathbb{R^D}$, $g(tm+(1-t)n)\leq tg(m)+(1-t)g(n)$.
+
+Plugging this into our definition of g, we get:
+
+\begin{align*}
+	g(m) &= f(mx+y-my)\\
+	g(n) &= f(nx+y-nx)\\
+\end{align*}
+
+Now we let $tm+(1-t)n$ be the argument of g:
+
+\begin{align*}
+	g(tm+(1-t)n)&= f(tmx+(1-t)nx+y-tmx-(1-2)ny)\\
+	&= f(t(mx-ny+y)+(1-t)(nx-ny+y))\\
+	&\leq tf((mx-ny+y))+(1-t)f(nx-ny+y)\\
+	&=tg(m)+(1-t)g(n)
+\end{align*}
+
+Thus we have shown that:
+
+\begin{align*}
+	g(tm+(1-t)n)&\leq tg(m)+(1-t)g(n)\\
+\end{align*}
+
+This matches the definition of convexity, and so g is convex.
 \end{proof}
 \section{Problem 5}
-Notes for me, will delete later:
-
-Papers used: https://arxiv.org/pdf/1609.04747.pdf
-
-
-"Describe each of the techniques in detail. Compare and contrast the relative advantages and
-disadvantages of each of the techniques. Are there specific types of datasets where one technique is expected to perform better than the other? if so, why? Provide detailed justifications
-for each."
 \subsubsection{Full Gradient Descent}
 Full gradient descent adjusts the parameters of the model after computing the gradient of the cost function using the following formula:
 
@@ -292,11 +352,7 @@ AdaDelta, like RMSProp, is a modification to AdaGrad meant to combat its chief d
 	RMS[\Delta \theta]_t &= \sqrt[•]{E[\Delta \theta^2]_t+\epsilon}\\
 	\theta_{t+1} &= \theta_t - \frac{RMS[\Delta \theta]_{t-1}}{RMS[g]_t} g_t\\
 \end{align*}
-<<<<<<< HEAD
 
-The reason why we take the 
-=======
->>>>>>> e7be00f22f29eafa56ae8f6b192de2d2374ac0b4
 \begin{enumerate}
 	\item Advantages: No need to set default learning rate since it is no longer a component of the update rule; solves the monotonically decreasing learning rate problem presented by AdaGrad. Thus, unlike in AdaGrad, AdaDelta will continue to improve indefinitely.
 	\item Disadvantages: Moving averages are biased by initialization of decay parameters.
