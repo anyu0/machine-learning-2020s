@@ -105,15 +105,54 @@
 		\end{align*}
 	\end{proof}
 
-\section{Problem 4}
-\subsection{a}
+
+\section*{Problem 2}
+\subsection*{(i)}
+	Suppose we have a perfect classifier such that $\hat{Y}=y$ whenever $Y=y$, 
+	and that the distribution of $(X,A,Y)$ is symmetrical across the sensitive attribute $A$. 
+	For example, let $(f(X),A,Y)\in \{(1,1,1),(1,0,1),(0,1,0),(0,0,0)\}$ with uniform distribution.
+	Thus we have
+	\begin{align*}
+		\mathbb{P}_0[\hat{Y}=\hat{y}] &= \frac{1}{2} = \mathbb{P}_1 [\hat{Y}=\hat{y}] \tag{DP}  \\
+		\mathbb{P}_0[\hat{Y}=1|Y=1] &= 1 = \mathbb{P}_1 [\hat{Y}=1|Y=1] \tag{True Positive EO} \\
+		\mathbb{P}_0[\hat{Y}=0|Y=0] &= 1 = \mathbb{P}_1 [\hat{Y}=0|Y=0] \tag{True Negative EO} \\
+		\mathbb{P}_0[Y=1 | \hat{Y}=1] &=1 = \mathbb{P}_1[Y=1 | \hat{Y}=1] \tag{Positive PP} \\
+		\mathbb{P}_0[Y=0 | \hat{Y}=0] &=1 = \mathbb{P}_1[Y=0 | \hat{Y}=0] \tag{Negative PP}
+	\end{align*}
+\subsection*{(ii)}
+	\begin{proof}
+		Suppose both DP and PP are satisfied.
+		Then we have 
+		\begin{align*}
+			\mathbb{P}_0[\hat{Y}=\hat{y}] &= \mathbb{P}_1 [\hat{Y}=\hat{y}] \tag{DP} \\
+			\mathbb{P}_0[Y=1 | \hat{Y}=1] &= \mathbb{P}_1[Y=1 | \hat{Y}=1] \tag{Positive PP} \\
+		\end{align*}
+		Since the random variable $(\hat{Y},A,Y)$ satisfy separation ($\hat{Y}\perp A|Y$), we have
+		\begin{align*}
+			\mathbb{P}_0[\hat{Y}=1|Y=1] = \mathbb{P}_1[\hat{Y}=1|Y=1] 
+		\end{align*}
+		By Positive Predicative Parity, we can write
+		\begin{align*}
+			\mathbb{P}_0[Y=1 | \hat{Y}=1] &= \mathbb{P}_1[Y=1 | \hat{Y}=1] \\
+			\frac{\mathbb{P}_0[\hat{Y}=1|Y=1] \mathbb{P}_0[Y=1] }{\mathbb{P}_0[\hat{Y}=1] } 
+			&= \frac{\mathbb{P}_1[\hat{Y}=1|Y=1] \mathbb{P}_1[Y=1] }{ \mathbb{P}_1[\hat{Y}=1] } \tag{Bayes Rule} \\
+			\mathbb{P}_0[\hat{Y}=1|Y=1] \mathbb{P}_0[Y=1] &= \mathbb{P}_1[\hat{Y}=1|Y=1] \mathbb{P}_1[Y=1] \tag{DP}\\
+			\mathbb{P}_0[Y=1] &= \mathbb{P}_1[Y=1] \tag{Separation Condition}
+		\end{align*}
+		However $A\perp Y$ contradicts the dependence condition.
+	\end{proof}
+
+
+
+\section*{Problem 4}
+\subsection*{a}
 \begin{align*}
 	g(t) &= f(tx+(1-t)y)\\
 	g'(t) &= (x-y) \frac{d}{dt} f(tx+(1-t)y)\\
 	g''(t) &= (x-y)^2\frac{d^2}{dt^2} f(tx+(1-t)y)\\
 \end{align*}
 
-\subsection{b}
+\subsection*{b}
 \begin{proof}
 Taylor's theorem states that if a function and its first n derivatives are continuous on $[a, b]$ or $[b, a]$ (with $f^{(n)}$ differentiable on $(a, b)$ or $(b, a)$, then $\exists$ c s.t.:
 
@@ -154,7 +193,7 @@ From part (a) we know that $\forall c \in (0, 1)$, $g''(c) \geq 0$; also, $(1-t)
 \end{align*}	
 \end{proof}
 
-\subsection{c}
+\subsection*{c}
 \begin{proof}
 	We are given that $g = f(tx+(1-t)y)$. Thus, if f is convex (i.e. $f(tx+(1-t)y)\leq tf(x)+(1-t)f(y)$), this implies that g is also convex.
 	
@@ -191,7 +230,8 @@ Thus, we have shown that:
 	f(tx+(1-t)y)&\leq tf(x)+(1-t)f(y)\\
 \end{align*}
 \end{proof}
-\section{Problem 5}
+
+\section*{Problem 5}
 Notes for me, will delete later:
 
 Papers used: https://arxiv.org/pdf/1609.04747.pdf
@@ -200,7 +240,7 @@ Papers used: https://arxiv.org/pdf/1609.04747.pdf
 "Describe each of the techniques in detail. Compare and contrast the relative advantages and
 disadvantages of each of the techniques. Are there specific types of datasets where one technique is expected to perform better than the other? if so, why? Provide detailed justifications
 for each."
-\subsection{Full Gradient Descent}
+\subsection*{Full Gradient Descent}
 Full gradient descent adjusts the parameters of the model after computing the gradient of the cost function using the following formula:
 
 \begin{align*}
@@ -215,7 +255,7 @@ Here, $\theta$ are the parameters of the model and $\eta$ is the learning rate. 
 	\item Best used for: Smaller datasets for which the model does not need to be updated online. This is because GD will run too slowly with larger datasets and cannot account for online updates. 
 \end{enumerate}
 
-\subsection{Stochastic Gradient Descent}
+\subsection*{Stochastic Gradient Descent}
 Stochastic gradient descent (SGD) adjusts the parameters of the model after computing the gradient of the cost function after each point:
 
 \begin{align*}
@@ -228,7 +268,7 @@ Stochastic gradient descent uses one data point to compute the gradient. Mini-ba
 	\item Best used for:
 \end{enumerate}
 
-\subsection{Stochastic Gradient Descent with Momentum}
+\subsection*{Stochastic Gradient Descent with Momentum}
 Stochastic Gradient Descent with Momentum (SGDM) seeks to alleviate the issues caused by ravines in standard SGD by introducing a momentum component. 
 
 \begin{align*}
@@ -244,7 +284,7 @@ Here, $v_t$ is the update vector which we use to adjust $\theta$ after each iter
 	\item Best used for: Datasets whose error manifolds form ravines.
 \end{enumerate}
 
-\subsection{Adaptive Gradient}
+\subsection*{Adaptive Gradient}
 Adaptive gradient (AdaGrad), as its name suggests, adapts the learning rate $\eta$ to each parameter. Common parameters are updated with smaller steps, whereas infrequent parameters are updated with bigger steps.
 
 \begin{align*}
@@ -261,7 +301,7 @@ Here, parameter $\theta_i$ is updated with value $\theta_{t+1, i}$ at time $t+1$
 	\item Disadvantages: Since gradients are squared and summed, the values in $G_t$ are monotonically increasing. Therefore, since we divide $\eta$ by $G_t$ and the values in $G_t$ continue to grow, eventually the learning rate will shrink to very small values. This will mean that the algorithm's update will barely change the parameters and the algorithm will barely learn more.
 	\item Best used for: sparse datasets for the reasons explained above.
 \end{enumerate}
-\subsection{RMSProp}
+\subsection*{RMSProp}
 RMSProp (root mean square propagation) is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning rate. 
 
 \begin{align*}
@@ -276,7 +316,7 @@ RMSProp introduces a term similar to that of the momentum term in SGDM. Here, we
 	\item Disadvantages:
 	\item Best used for:
 \end{enumerate}
-\subsection{AdaDelta}
+\subsection*{AdaDelta}
 AdaDelta, like RMSProp, is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning  rate. It is indeed very similar to RMSProp. In fact, the only difference between them is the usage of the root mean square of the parameter updates, rather than a preset $\eta$. We use $g$ as a shorthand for the gradient at time step $t$, and $E[g^2]_t$ as the running decaying average of the past squared gradients.
 
 \begin{align*}
@@ -295,7 +335,7 @@ The reason why we take the
 	\item Disadvantages:
 	\item Best used for:
 \end{enumerate}
-\subsection{Adaptive Moment Estimation}
+\subsection*{Adaptive Moment Estimation}
 Adaptive Moment Estimation (ADAM), like AdaGrad, is a method which uses adaptive learning rates rather than a fixed one. Like Adadelta, ADAM maintains a exponentially decaying average of square gradients, but also adds an exponentially decaying average of past (unsquared) gradients. This acts in a similar fashion to momentum.
 
 \begin{align*}
@@ -327,4 +367,6 @@ where the second equality follows because the iterated maximiazation is equal to
 \[ L(\hat{\theta} | \textbf{x}) = \sup_{\{\theta :\tau (\theta)=\tau{\hat{\theta}}\}} L(\theta | \textbf{x}) = L^*[\tau(\hat{\theta}) | \textbf{x}]. \]
 Hence, the string of equalities shows that $L^*(\hat{\eta} | \textbf{x}) = L^*(\tau(\hat{\theta}) | \textbf{x})$ and that $\tau(\hat{\theta})$ is the MLE of $\tau(\theta)$.
 \end{proof}
+
+
 \end{document} 
