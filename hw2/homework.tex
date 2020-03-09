@@ -414,12 +414,10 @@ AdaDelta, like RMSProp, is a modification to AdaGrad meant to combat its chief d
 	RMS[\Delta \theta]_t &= \sqrt[•]{E[\Delta \theta^2]_t+\epsilon}\\
 	\theta_{t+1} &= \theta_t - \frac{RMS[\Delta \theta]_{t-1}}{RMS[g]_t} g_t\\
 \end{align*}
-
-The reason why we take the
 \begin{enumerate}
-	\item Advantages: No need to set default learning rate since it is no longer a component of the update rule; solves the monotonically decreasing learning rate problem presented by AdaGrad.
-	\item Disadvantages:
-	\item Best used for:
+	\item Advantages: No need to set default learning rate since it is no longer a component of the update rule; solves the monotonically decreasing learning rate problem presented by AdaGrad. Thus, unlike in AdaGrad, AdaDelta will continue to improve indefinitely.
+	\item Disadvantages: Moving averages are biased by initialization of decay parameters.
+	\item Best used for: AdaDelta is generally good with saddle points; because it is derived from AdaGrad, it's good with sparse data sets. 
 \end{enumerate}
 \subsubsection{Adaptive Moment Estimation}
 
