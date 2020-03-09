@@ -141,8 +141,31 @@
 		\end{align*}
 		However $A\perp Y$ contradicts the dependence condition.
 	\end{proof}
-
-
+\subsection*{(iii)}
+	\begin{proof}
+		By Positive Equalized Odds, 
+		\begin{align*}
+			\mathbb{P}_0[ \hat{Y}=1|Y=1] &= \mathbb{P}_1[\hat{Y}=1|Y=1] \\
+			\frac{\mathbb{P}_0[Y=1|\hat{Y}=1] \mathbb{P}_0[\hat{Y}=1] }{\mathbb{P}_0[{Y}=1] } 
+			&= \frac{\mathbb{P}_1[Y=1|\hat{Y}=1] \mathbb{P}_1[\hat{Y}=1] }{ \mathbb{P}_1[{Y}=1] } \tag{Bayes Rule} \\
+			\frac{\mathbb{P}_0[Y=1|\hat{Y}=1]}{\mathbb{P}_0[{Y}=1] } 
+			&= \frac{\mathbb{P}_1[Y=1|\hat{Y}=1]}{ \mathbb{P}_1[{Y}=1] } \tag{DP}\\
+			\mathbb{P}_0[Y=1] &= \mathbb{P}_1[Y=1] \tag{$\hat{Y}$ dependent on $Y$}
+		\end{align*}
+		However $A\perp Y$ contradicts the dependence condition.
+	\end{proof}
+\subsection*{(iv)}
+	\begin{proof}
+		Let $PPV_a := \mathbb{P}_a[Y=1 | \hat{Y}=1]$. We have
+		\begin{align*}
+			PPV_a = \frac{TPR p_a}{TPR p_a+FPR(1-p_a)}
+		\end{align*}
+		Hence $PPV_0=PPV_1$ implies either $TPR=0$ or $FPR=0$. However
+		\begin{align*}
+			NPV_a = \frac{(1-FPR) (1-p_a)}{(1-TPR) p_a+(1-FPR)(1-p_a)}
+		\end{align*}
+		in either case, $NPV_0\neq NPV_1$. Hence predictive value parity fails.
+	\end{proof}
 
 \section*{Problem 4}
 \subsection*{a}
