@@ -10,17 +10,17 @@
 \usepackage{subcaption}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
-\coursename{COMS 4771 Machine Learning (Spring 2020)}
+\coursename{COMS 4771 Machine Learning (Spring 2020)} 
 
-\studname{Angela Wang}
+\studname{Angela Wang}     
 \studmail{aw3062@columbia.edu}
 \collab{Jane Pan (jp3740), Stan Liao (sl4239)}
-\hwNo{1}
-\date{02/28/2020}
+\hwNo{1}      
+\date{02/28/2020}  
 \begin{document}
 \maketitle
 
-\section*{Problem 1}
+\section*{Problem 1} 
 \subsection*{(i)}
 	\begin{proof}
 		Let $y := \text{sign} \left(\sum_{i=1}^{r}x_{k_i}\right)$, $\vec{x} := (x_1,\dots,x_d)$.
@@ -34,24 +34,24 @@
 		\begin{align*}
 			\sum_{k: \,x_k=1} w_k^{(t+1)}  = \sum_{k: \,x_k=1} 2w_k^{(t)},
 		\end{align*}
-		until the program moves to the next example when $\sum_{k: \,x_k=1} w_k  > d$.
+		until the program moves to the next example when $\sum_{k: \,x_k=1} w_k  > d$. 
 		In the worst case, $\sum_{k: \,x_k=1} w_k$ should increase as slow as possible.
 		We thus only consider examples with $\sum_{i=1}^{r}x_{k_i}=\sum_{k=1}^{d} x_{k}=1$.
-		In other words, examples $\vec{x}$ that have only one non-zero field,
+		In other words, examples $\vec{x}$ that have only one non-zero field, 
 		which is in one of the fields selected by the OR operation.
 		There are in total $r$ examples we should consider.\\
-		For each example $\vec{x}$, $\exists i $ such that $x_{k_i} = 1$.
+		For each example $\vec{x}$, $\exists i $ such that $x_{k_i} = 1$. 
 		The condition for making a mistake is therefore written as
 		\begin{align*}
 			w_{k_i}  &\leq d
 		\end{align*}
-		Let $T$ be the minimum number of steps required to pass this type of example.
+		Let $T$ be the minimum number of steps required to pass this type of example. 
 		Since $w_{k_i} ^{(0)} = 1$ and $w_{k_i} ^{(t+1)} = 2w_{k_i} ^{(t)} $, we have
 		\begin{align*}
 			w_{k_i}^{(T)} =  2^T w_{k_i}^{(0)} =  2^T \leq d \\
 			T\leq \ceil{\log{d}} < \log{d}+1
 		\end{align*}
-		Since there are at most $r$ examples with $x_{k_i} = 1$ and $x_k = 0$ $\forall k \neq k_i$.
+		Since there are at most $r$ examples with $x_{k_i} = 1$ and $x_k = 0$ $\forall k \neq k_i$. 
 		The total number of steps required should be at most $rT \leq r(\log{d} + 1)$.
 		Upon seeing other positive examples, there will be no more mistakes, since $\vec{w}\cdot\vec{x}$ will always be greater than $d$.
 	\end{proof}
@@ -72,7 +72,7 @@
 		\end{align*}
 		Therefore,
 		\begin{align*}
-			\sum_{k=1}^d w_k^{(t+1)}-\sum_{k=1}^d w_k^{(t)}
+			\sum_{k=1}^d w_k^{(t+1)}-\sum_{k=1}^d w_k^{(t)}  
 			= \frac{1}{2} \sum_{k: \,x_k=1} w_k^{(t)}
 			> \frac{d}{2}
 		\end{align*}
@@ -91,7 +91,7 @@
 			\sum_{k: \,x_k=0} w_k^{(t+1)}  &= \sum_{k: \,x_k=0} w_k^{(t)} \\
 			\sum_{k=1}^d w_k^{(t+1)}-\sum_{k=1}^d w_k^{(t)} &=   \sum_{k: \,x_k=1} w_k^{(t)} \leq d
 		\end{align*}
-		The accumulated change after $t$ iterations in the total weight is
+		The accumulated change after $t$ iterations in the total weight is 
 		\begin{align*}
 			\sum_{k=1}^d w_k ^{(t)} -\sum_{k=1}^d w_k ^{(0)} \leq d M_+ -\frac{d}{2} M_-
 		\end{align*}
@@ -108,135 +108,15 @@
 		\end{align*}
 	\end{proof}
 
-
-\section*{Problem 2}
-\subsection*{(i)}
-	Suppose we have a perfect classifier such that $\hat{Y}=y$ whenever $Y=y$,
-	and that the distribution of $(X,A,Y)$ is symmetrical across the sensitive attribute $A$.
-	For example, let $(f(X),A,Y)\in \{(1,1,1),(1,0,1),(0,1,0),(0,0,0)\}$ with uniform distribution.
-	Thus we have
-	\begin{align*}
-		\mathbb{P}_0[\hat{Y}=\hat{y}] &= \frac{1}{2} = \mathbb{P}_1 [\hat{Y}=\hat{y}] \tag{DP}  \\
-		\mathbb{P}_0[\hat{Y}=1|Y=1] &= 1 = \mathbb{P}_1 [\hat{Y}=1|Y=1] \tag{True Positive EO} \\
-		\mathbb{P}_0[\hat{Y}=0|Y=0] &= 1 = \mathbb{P}_1 [\hat{Y}=0|Y=0] \tag{True Negative EO} \\
-		\mathbb{P}_0[Y=1 | \hat{Y}=1] &=1 = \mathbb{P}_1[Y=1 | \hat{Y}=1] \tag{Positive PP} \\
-		\mathbb{P}_0[Y=0 | \hat{Y}=0] &=1 = \mathbb{P}_1[Y=0 | \hat{Y}=0] \tag{Negative PP}
-	\end{align*}
-\subsection*{(ii)}
-	\begin{proof}
-		Suppose both DP and PP are satisfied.
-		Then we have
-		\begin{align*}
-			\mathbb{P}_0[\hat{Y}=\hat{y}] &= \mathbb{P}_1 [\hat{Y}=\hat{y}] \tag{DP} \\
-			\mathbb{P}_0[Y=1 | \hat{Y}=1] &= \mathbb{P}_1[Y=1 | \hat{Y}=1] \tag{Positive PP} \\
-		\end{align*}
-		Since the random variable $(\hat{Y},A,Y)$ satisfy separation ($\hat{Y}\perp A|Y$), we have
-		\begin{align*}
-			\mathbb{P}_0[\hat{Y}=1|Y=1] = \mathbb{P}_1[\hat{Y}=1|Y=1]
-		\end{align*}
-		By Positive Predicative Parity, we can write
-		\begin{align*}
-			\mathbb{P}_0[Y=1 | \hat{Y}=1] &= \mathbb{P}_1[Y=1 | \hat{Y}=1] \\
-			\frac{\mathbb{P}_0[\hat{Y}=1|Y=1] \mathbb{P}_0[Y=1] }{\mathbb{P}_0[\hat{Y}=1] }
-			&= \frac{\mathbb{P}_1[\hat{Y}=1|Y=1] \mathbb{P}_1[Y=1] }{ \mathbb{P}_1[\hat{Y}=1] } \tag{Bayes Rule} \\
-			\mathbb{P}_0[\hat{Y}=1|Y=1] \mathbb{P}_0[Y=1] &= \mathbb{P}_1[\hat{Y}=1|Y=1] \mathbb{P}_1[Y=1] \tag{DP}\\
-			\mathbb{P}_0[Y=1] &= \mathbb{P}_1[Y=1] \tag{Separation Condition}
-		\end{align*}
-		However $A\perp Y$ contradicts the dependence condition.
-	\end{proof}
-\subsection*{(iii)}
-	\begin{proof}
-		By Positive Equalized Odds,
-		\begin{align*}
-			\mathbb{P}_0[ \hat{Y}=1|Y=1] &= \mathbb{P}_1[\hat{Y}=1|Y=1] \\
-			\frac{\mathbb{P}_0[Y=1|\hat{Y}=1] \mathbb{P}_0[\hat{Y}=1] }{\mathbb{P}_0[{Y}=1] }
-			&= \frac{\mathbb{P}_1[Y=1|\hat{Y}=1] \mathbb{P}_1[\hat{Y}=1] }{ \mathbb{P}_1[{Y}=1] } \tag{Bayes Rule} \\
-			\frac{\mathbb{P}_0[Y=1|\hat{Y}=1]}{\mathbb{P}_0[{Y}=1] }
-			&= \frac{\mathbb{P}_1[Y=1|\hat{Y}=1]}{ \mathbb{P}_1[{Y}=1] } \tag{DP}\\
-			\mathbb{P}_0[Y=1] &= \mathbb{P}_1[Y=1] \tag{$\hat{Y}$ dependent on $Y$}
-		\end{align*}
-		However $A\perp Y$ contradicts the dependence condition.
-	\end{proof}
-\subsection*{(iv)}
-	\begin{proof}
-		Let $\text{PPV}_a := \mathbb{P}_a[Y=1 | \hat{Y}=1]$. We have
-		\begin{align*}
-			\text{PPV}_a & = \mathbb{P}_a[Y=1 | \hat{Y}=1] \\
-			&= \frac{\mathbb{P}_a[\hat{Y}=1|Y=1] \mathbb{P}_a[Y=1] }
-			{\mathbb{P}_a[\hat{Y}=1] } \tag{Bayes Rule}\\
-			&= \frac{\mathbb{P}_a[\hat{Y}=1|Y=1] \mathbb{P}_a[Y=1] }
-			{\mathbb{P}_a[\hat{Y}=1|Y=1] \mathbb{P}_a[Y=1]+
-			\mathbb{P}_a[\hat{Y}=1|Y=0] \mathbb{P}_a[Y=0] }\\
-			&= \frac{ (1-\mathbb{P}_a[\hat{Y}=0|Y=1]) \mathbb{P}_a[Y=1] }
-			{ (1-\mathbb{P}_a[\hat{Y}=0|Y=1])  \mathbb{P}_a[Y=1]+
-			\mathbb{P}_a[\hat{Y}=1|Y=0] (1-\mathbb{P}_a[Y=1]) }\\
-			&= \frac{(1-\text{FNR}_a) p_a}{(1-\text{FNR}_a)  p_a+\text{FPR}_a(1-p_a)}
-		\end{align*}
-		By Equalized Odds, we have $\text{FNR}_0=\text{FNR}_1$, and $\text{FPR}_0=\text{FPR}_1$.
-		By Positive Predictive Parity, $\text{PPV}_0=\text{PPV}_1$ which implies either $\text{FNR}_a=1$
-		or $\text{FPR}_a=0$. However considering Negative Predictive Parity,
-		\begin{align*}
-			\text{NPV}_a &=  \mathbb{P}_a[Y=1 | \hat{Y}=0] \\
-			&= \frac{\mathbb{P}_a[\hat{Y}=0|Y=1] \mathbb{P}_a[Y=1] }
-			{\mathbb{P}_a[\hat{Y}=0] } \tag{Bayes Rule}\\
-			&= \frac{\mathbb{P}_a[\hat{Y}=0|Y=1] \mathbb{P}_a[Y=1] }
-			{\mathbb{P}_a[\hat{Y}=0|Y=1] \mathbb{P}_a[Y=1]+
-			\mathbb{P}_a[\hat{Y}=0|Y=0] \mathbb{P}_a[Y=0] }\\
-			&= \frac{\text{FNR}_a p_a}{\text{FNR}_a p_a+(1-\text{FPR}_a)(1-p_a)}
-		\end{align*}
-		in either case, $\text{NPV}_0\neq \text{NPV}_1$. Hence predictive value parity fails.
-	\end{proof}
-
-\section*{Problem 3}
-\subsection*{(i)}
-	\begin{proof}
-		$\phi_\sigma$ forms an uncountably infinite feature space corresponding in cardinality to $\mathbb{R}$.
-		By the density of rationals, $\forall x_i$ for $i \in [1,n] \exists r \in \mathbb{Q}$
-		s.t. $r$ is not in between $x_i$ and any other members of x. \\
-		$\therefore$ we can construct a neighborhood $N$ of radius $\sigma > 0$ about $x_i$
-		s.t. $\nexists x_j \in N$ where $j \in [1, n]$ and $j \neq i$. \\
-		By the conditions of the problem, this means that $\phi_\sigma (x) = 0 \forall x_i$ of our choice. \\
-		$\therefore$ we can select a $\sigma$ s.t. any binary labeling of the n points will have one label corresponding to zero values in $\phi_\sigma(x)$ and one label corresponding to nonzero values. We can draw a hyperplane dividing zero from nonzero values in the relevant dimensions (i.e. those corresponding to the $x_i$ of one of our binary labels). This hyperplane can have arbitrary values in the other dimensions. This hyperplane will separate the n points by binary label, thus construing a linear separation.
-	\end{proof}
-
-\subsection*{(ii)}
-	\begin{proof}
-		By $x \mapsto 1[|\alpha-x| < \sigma]:\\
-		\forall \alpha$ s.t. $|\alpha - x| > \sigma $ or $|\alpha - x'| > \sigma$, $\phi_\sigma(x) \phi_\sigma(x') = 0$\\
-		Let $A$ be the minimum value of $\alpha$ where $|\alpha - x| < \sigma $ or $|\alpha - x'| < \sigma$\\
-		Let $B$ be the maximum value of $\alpha$ where $|\alpha - x| < \sigma $ or $|\alpha - x'| < \sigma$\\
-		The only nonzero values of the dot product occurs where $\alpha \in [A, B]$.  Thus, we only hve to integrate from A to B, because the rest of the values are zero.\\
-		$\phi_\sigma(x) \dot \phi_\sigma(x') = \int_{A}^{B} \phi_\sigma(x) \phi_\sigma(x') d\alpha$
-	\end{proof}
-
-\subsection*{(iii)}
-	\subsection*{(a)}
-	\begin{proof}
-		$ || \phi(x) - c_+ || \leq || \phi(x) - c_-||$ \\
-		$ \iff  \sqrt{\phi \cdot \phi - 2c_+ \cdot \phi + c_+ \cdot c_+} \leq  \sqrt{\phi \cdot \phi - 2c_- \cdot \phi - c_+ \cdot c_-}$\\
-		$ \iff  - 2c_+ \cdot \phi + c_+ \cdot c_+ \leq  - 2c_- \cdot \phi + c_- \cdot c_-$ \\
-		$\iff - c_+ \cdot \phi + \frac{1}{2} c_+ \cdot c_+ \leq  - c_- \cdot \phi + \frac{1}{2} c_- \cdot c_- $ \\
-		$\iff  c_+ \cdot \phi - c_- \cdot \phi + \frac{1}{2} (-c_+ \cdot c_+  + c_- \cdot c_-) \geq 0$ \\
-		$\iff  (c_+ - c_-) \cdot \phi + \frac{1}{2} ( ||c_-||^2 - ||c_+ ||^2) \geq 0$ \\
-		$\iff  \langle w, \phi(x) \rangle + b \geq 0$ \\
-		$\therefore \langle w, \phi(x) \rangle + b$  is positive iff $h(x)  = 1$ and is negative iff $h(x) = -1$.\\
-		$h(x)  =$ sign$( \langle w, \phi(x) \rangle + b)$
-	\end{proof}
-
-	\subsection*{(b)}
-	$h(x) = 1$ iff $K(w, \phi(x)) \geq \frac{1}{2}(K(c_-, c_-), K(c_+, c_+))$\\
-	otherwise, $h(x) = -1$
-
-
-\section*{Problem 4}
-\subsection*{a}
+\section{Problem 4}
+\subsection{a}
 \begin{align*}
 	g(t) &= f(tx+(1-t)y)\\
 	g'(t) &= (x-y) \frac{d}{dt} f(tx+(1-t)y)\\
 	g''(t) &= (x-y)^2\frac{d^2}{dt^2} f(tx+(1-t)y)\\
 \end{align*}
 
-\subsection*{b}
+\subsection{b}
 \begin{proof}
 Taylor's theorem states that if a function and its first n derivatives are continuous on $[a, b]$ or $[b, a]$ (with $f^{(n)}$ differentiable on $(a, b)$ or $(b, a)$, then $\exists$ c s.t.:
 
@@ -274,32 +154,32 @@ From part (a) we know that $\forall c \in (0, 1)$, $g''(c) \geq 0$; also, $(1-t)
 \begin{align*}
 	g(1)-(g(t) + g'(t)(1-t)) &\geq 0\\
 	g(1)&\geq g(t) + g'(t)(1-t)\\
-\end{align*}
+\end{align*}	
 \end{proof}
 
-\subsection*{c}
+\subsection{c}
 \begin{proof}
 	We are given that $g = f(tx+(1-t)y)$. Thus, if f is convex (i.e. $f(tx+(1-t)y)\leq tf(x)+(1-t)f(y)$), this implies that g is also convex.
-
+	
 	We note that:
 	\begin{align*}
 		g(0) &= f(y)\\
 		g(1) &= f(x)\\
 	\end{align*}
-
+	
 	Plugging this into the convexity condition for f gives:
-
+	
 	\begin{align*}
 		f(tx+(1-t)y)&\leq tf(x)+(1-t)f(y)\\
 		g(t)&\leq tg(1)+(1-t)g(0)\\
 	\end{align*}
-
-	Now recall the inequalities given in part (ii):
+	
+	Now recall the inequalities given in part (ii):	
 	\begin{align*}
 	g(0) &\geq g(t) + g'(t)(-t)\\
 	g(1) &\geq g(t) + g'(t)(1-t)\\
 	\end{align*}
-
+	
 We multiply by $1-t$ and $t$, respectively, and then add:
 
 	\begin{align*}
@@ -307,15 +187,14 @@ We multiply by $1-t$ and $t$, respectively, and then add:
 	 &\geq g(t) -t(1-t)g'(t)+ t(1-t)g(t)\\
 	 &\geq g(t)\\
 	\end{align*}
-
+	
 Thus, we have shown that:
 \begin{align*}
 	g(t)&\leq tg(1)+(1-t)g(0)\\
 	f(tx+(1-t)y)&\leq tf(x)+(1-t)f(y)\\
 \end{align*}
 \end{proof}
-
-\section*{Problem 5}
+\section{Problem 5}
 Notes for me, will delete later:
 
 Papers used: https://arxiv.org/pdf/1609.04747.pdf
@@ -324,7 +203,7 @@ Papers used: https://arxiv.org/pdf/1609.04747.pdf
 "Describe each of the techniques in detail. Compare and contrast the relative advantages and
 disadvantages of each of the techniques. Are there specific types of datasets where one technique is expected to perform better than the other? if so, why? Provide detailed justifications
 for each."
-\subsection*{Full Gradient Descent}
+\subsubsection{Full Gradient Descent}
 Full gradient descent adjusts the parameters of the model after computing the gradient of the cost function using the following formula:
 
 \begin{align*}
@@ -335,11 +214,11 @@ Here, $\theta$ are the parameters of the model and $\eta$ is the learning rate. 
 
 \begin{enumerate}
 	\item Advantages: GD is guaranteed to converge to a minimum (global if the error surface is convex and local otherwise).
-	\item Disadvantages: GD is extremely slow since the gradient must be calculated for the entire dataset for a single update. This means GD is unsuited for very large datasets (especially those that cannot be stored in memory). Moreover, since the entire original dataset must be used to perform updates in GD, new data cannot be added on the fly during training. Also, since the learning rate is chosen and fixed for all parameters, it is difficult to to chose a rate that is neither too small (leading to slow convergence) or too fast (leading to fluctuation around minima or failure to converge) for all parameters. This is particularly difficult when there are many parameters; a common learning rate may make the algorithm take steps that are too big in one dimension (if the contour is steep in that direction), yet are too small in other dimensions (where the contour is relatively flat). If the error surface has many local minima, the error function may be "stuck" in a local minima and will fail to converge to the optimum solution.
-	\item Best used for: Smaller datasets for which the model does not need to be updated online. This is because GD will run too slowly with larger datasets and cannot account for online updates.
+	\item Disadvantages: GD is extremely slow since the gradient must be calculated for the entire dataset for a single update. This means GD is unsuited for very large datasets (especially those that cannot be stored in memory). Moreover, since the entire original dataset must be used to perform updates in GD, new data cannot be added on the fly during training. Also, since the learning rate is chosen and fixed for all parameters, it is difficult to to chose a rate that is neither too small (leading to slow convergence) or too fast (leading to fluctuation around minima or failure to converge) for all parameters. This is particularly difficult when there are many parameters; a common learning rate may make the algorithm take steps that are too big in one dimension (if the contour is steep in that direction), yet are too small in other dimensions (where the contour is relatively flat). If the error surface has many local minima, the error function may be "stuck" in a local minima and will fail to converge to the optimum solution. 
+	\item Best used for: Smaller datasets for which the model does not need to be updated online. This is because GD will run too slowly with larger datasets and cannot account for online updates. 
 \end{enumerate}
 
-\subsubsection*{Stochastic Gradient Descent}
+\subsubsection{Stochastic Gradient Descent}
 Stochastic gradient descent (SGD) adjusts the parameters of the model after computing the gradient of the cost function after each point:
 
 \begin{align*}
@@ -353,13 +232,13 @@ Stochastic gradient descent uses one data point to compute the gradient. Mini-ba
 \end{enumerate}
 
 \subsubsection{Stochastic Gradient Descent with Momentum}
-Stochastic Gradient Descent with Momentum (SGDM) seeks to alleviate the issues caused by ravines and noise in standard SGD by introducing a momentum component.
+Stochastic Gradient Descent with Momentum (SGDM) seeks to alleviate the issues caused by ravines and noise in standard SGD by introducing a momentum component. 
 
 \begin{align*}
 	v_t &= \gamma v_{t-1} + \eta \nabla_\theta J(\theta)\\
 	\theta &= \theta - v_t
 \end{align*}
-Here, $v_t$ is the update vector which we use to adjust $\theta$ after each iteration. Momentum adds a fraction (the momentum term $\gamma$) of the previous update vector to the current update vector. This means that a dimension of the current update vector is increased when if the direction of the dimension in the current gradient is the same of that in previous gradient. Likewise, it is decreased if the directions are opposite.
+Here, $v_t$ is the update vector which we use to adjust $\theta$ after each iteration. Momentum adds a fraction (the momentum term $\gamma$) of the previous update vector to the current update vector. This means that a dimension of the current update vector is increased when if the direction of the dimension in the current gradient is the same of that in previous gradient. Likewise, it is decreased if the directions are opposite. 
 
 
 \begin{enumerate}
@@ -377,7 +256,7 @@ Adaptive gradient (AdaGrad), as its name suggests, adapts the learning rate $\et
 \end{align*}
 
 Here, parameter $\theta_i$ is updated with value $\theta_{t+1, i}$ at time $t+1$. $G_{t, ii}$ is a diagonal matrix with each diagonal term being the sum of the squares of all past gradients. $\epsilon$ is a smoothing term to prevent division by zero.
-
+ 
 
 %https://web.archive.org/web/20150330033637/http://seed.ucsd.edu/mediawiki/images/6/6a/Adagrad.pdf
 \begin{enumerate}
@@ -385,9 +264,8 @@ Here, parameter $\theta_i$ is updated with value $\theta_{t+1, i}$ at time $t+1$
 	\item Disadvantages: Since gradients are squared and summed, the values in $G_t$ are monotonically increasing. Therefore, since we divide $\eta$ by $G_t$ and the values in $G_t$ continue to grow, eventually the learning rate will shrink to very small values. This will mean that the algorithm's update will barely change the parameters and the algorithm will barely learn more.
 	\item Best used for: sparse datasets for the reasons explained above.
 \end{enumerate}
-
 \subsubsection{RMSProp}
-RMSProp (root mean square propagation) is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning rate.
+RMSProp (root mean square propagation) is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning rate. 
 
 \begin{align*}
 	E[g^2]_t &= \gamma E[g^2]_{t-1} + (1-\gamma)g^2_t\\
@@ -403,7 +281,7 @@ RMSProp introduces a term similar to that of the momentum term in SGDM. Here, we
 \end{enumerate}
 
 \subsubsection{AdaDelta}
-AdaDelta, like RMSProp, is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning  rate. It is indeed very similar to RMSProp. In fact, the only difference between them is the usage of the root mean square of the parameter updates, rather than a preset $\eta$. We use $g$ as a shorthand for the gradient at time step $t$, and $E[g^2]_t$ as the running decaying average of the past squared gradients.
+AdaDelta, like RMSProp, is a modification to AdaGrad meant to combat its chief disadvantage: its monotonically decreasing learning  rate. It is indeed very similar to RMSProp. In fact, the only difference between them is the usage of the root mean square of the parameter updates, rather than a preset $\eta$. We use $g$ as a shorthand for the gradient at time step $t$, and $E[g^2]_t$ as the running decaying average of the past squared gradients. 
 
 \begin{align*}
 	g_t &= \nabla_{\theta_t} J(\theta_{t, i})\\
@@ -414,13 +292,17 @@ AdaDelta, like RMSProp, is a modification to AdaGrad meant to combat its chief d
 	RMS[\Delta \theta]_t &= \sqrt[•]{E[\Delta \theta^2]_t+\epsilon}\\
 	\theta_{t+1} &= \theta_t - \frac{RMS[\Delta \theta]_{t-1}}{RMS[g]_t} g_t\\
 \end{align*}
+<<<<<<< HEAD
+
+The reason why we take the 
+=======
+>>>>>>> e7be00f22f29eafa56ae8f6b192de2d2374ac0b4
 \begin{enumerate}
 	\item Advantages: No need to set default learning rate since it is no longer a component of the update rule; solves the monotonically decreasing learning rate problem presented by AdaGrad. Thus, unlike in AdaGrad, AdaDelta will continue to improve indefinitely.
 	\item Disadvantages: Moving averages are biased by initialization of decay parameters.
 	\item Best used for: AdaDelta is generally good with saddle points; because it is derived from AdaGrad, it's good with sparse data sets. 
 \end{enumerate}
 \subsubsection{Adaptive Moment Estimation}
-
 Adaptive Moment Estimation (ADAM), like AdaGrad, is a method which uses adaptive learning rates rather than a fixed one. Like Adadelta, ADAM maintains a exponentially decaying average of square gradients, but also adds an exponentially decaying average of past (unsquared) gradients. This acts in a similar fashion to momentum.
 
 \begin{align*}
@@ -428,7 +310,7 @@ Adaptive Moment Estimation (ADAM), like AdaGrad, is a method which uses adaptive
 	v_0 &= 0\\
 	m_t &= \beta_1 m_{t-1}+(1-\beta_1)g_t\\
 	v_t &= \beta_2 v_{t-1}+(1-\beta_2)g^2_t\\
-\end{align*}
+\end{align*} 
 
 Since the vectors are initialized at zero, $m_t$ and $v_t$ will be biased towards zero, so we use bias-corrected estimates instead:
 
@@ -439,9 +321,9 @@ Since the vectors are initialized at zero, $m_t$ and $v_t$ will be biased toward
 \end{align*}
 
 \begin{enumerate}
-	\item Advantages: Because Adam is a combination of SGD and RMSProp with momentum, Adam works well with sparse gradients and on-line settings. Adam tends to be significantly faster and more powerful than other methods.
-	\item Disadvantages: Because Adam is adaptive, it generalizes poorly, especially compared to SGD with momentum when tested on a diverse set of deep learning tasks. Due to its poor generalization, it may fail to converge to an optimal solution. One possible cause is that Adam's learning saturates in later stages of training. The updates of Adam, unlike in SGD, do not lie in the span of historical gradients. Additionally, while the magnitudes of Adam parameter updates are invariant to descaling of the gradient, the effect of the updates on the same overall network function still varies with the magnitudes of parameters.
-	\item Best used for: areas with tiny gradients (e.g. saddle points, ravines) because the step size of Adam update rule is invariant to the magnitude of the gradient. Adam is also good for sparse gradients (advantage of Adagrad incorporated by Adam), and in on-line settings (advantage of RMSProp).
+	\item Advantages:
+	\item Disadvantages:
+	\item Best used for:
 \end{enumerate}
 
 \subsection{(b)}
@@ -458,70 +340,70 @@ For our parameters, we chose our learning rate to be $0.005$ (except for RMSProp
 We defined convergence as a change in cost less than .25\% the previous change, or a change in cost less than 0.0001 -- whichever comes first.
 
 \subsubsection{Small, linearly separable dataset}
-Here, we randomly generated 100 points in separate blobs, ensuring that they were linearly separable.
+Here, we randomly generated 100 points in separate blobs, ensuring that they were linearly separable. 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/sep_100/lines.png}
+		\includegraphics[scale=.5]{q5/sep_100/lines.png}	
 		\caption{Decision boundaries after 1000 epoches, small LS dataset}
 	\end{figure}
-
+	
 As can be seen above, all methods were able to find a decision boundary that classified the data correctly.
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/sep_100/loss_n1000.png}
+		\includegraphics[scale=.5]{q5/sep_100/loss_n1000.png}	
 		\caption{Loss function of first 1000 epoches}
 	\end{figure}
-
+	
 It is evident that the slowest functions to converge are Adagrad and GD. This supports our earlier conclusions; Adagrad is bogged down by an adaptive learning rate that monotonically decreases (ergo drastically slowing learning in the later epoches), and GD updates its weights only once per epoch. To compare the remaining five methods more precisely, we show the loss functions of the first 200 epoches:
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/sep_100/loss_n100.png}
+		\includegraphics[scale=.5]{q5/sep_100/loss_n100.png}	
 		\caption{Loss function of first 200 epoches}
 	\end{figure}
 
 Here, it becomes clear that while RMSProp learns faster than Adagrad (thanks to the adjustments made to prevent loss of learning), it still lags behind Adadelta. This is because Adadelta's adjusted learning rate is not dependent on a preset learning rate, so it can adapt its learning rate to convergence faster.
-
+	
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.3]{q5/sep_100/acc.png}
+		\includegraphics[scale=.3]{q5/sep_100/acc.png}	
 		\caption{Prediction accuracy on test set for up to 10 epoches}
 	\end{figure}
 
-Interestingly, we see here that all methods produce perfect classification even after one iteration. This could be because the distance between the points is large enough where even a single update pushes the decision boundary into an area that perfectly classifies the data, even if the decision boundary itself is not optimal.
-
-
+Interestingly, we see here that all methods produce perfect classification even after one iteration. This could be because the distance between the points is large enough where even a single update pushes the decision boundary into an area that perfectly classifies the data, even if the decision boundary itself is not optimal. 
+ 
+ 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/sep_100/time.png}
+		\includegraphics[scale=.5]{q5/sep_100/time.png}	
 		\caption{Iterations to convergence with small LS dataset}
 	\end{figure}
-
+	
 Here, the results we expect given our conclusions in (ii) are clear. Adagrad takes much longer to converge than other methods, due to the weaknesses of its learning rate definition. GD also takes a long time, since its update rate is so slow. All other methods converge much faster (~50 iterations).
-
+	
 
 \subsubsection{Small, linearly inseparable dataset}
-Here, we randomly generated 100 points in separate blobs, ensuring that they were linearly inseparable.
+Here, we randomly generated 100 points in separate blobs, ensuring that they were linearly inseparable. 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/insep_100/lines.png}
+		\includegraphics[scale=.5]{q5/insep_100/lines.png}	
 		\caption{Decision boundaries with small LI dataset after 1000 epoches}
 	\end{figure}
-
+	
 Here, we begin to see obvious differences in the performance of the methods. Notably, SGD, SGDM, and Adam draw different boundaries than the rest of the methods.
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/insep_100/loss.png}
+		\includegraphics[scale=.5]{q5/insep_100/loss.png}	
 		\caption{Loss function of first 1000 epoches with small LI dataset}
 	\end{figure}
-
+	
 	These loss functions demonstrate that SGD, SGDM, and Adam learn faster than the other four methods. This makes sense, since SGD and SGDM update after every point (while the other methods use minibatches or full batches). Moreover, SGDM learns faster than SGD, since the stabilization from the momentum component contributes to its converging faster than SGd does. Adam is the fastest to learn, which again agrees with our conclusion in (a). On the other hand, Adagrad once again lags due to its decreasing learning rate, and GD is the second slowest due to its infrequent updates.
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.3]{q5/insep_100/acc.png}
+		\includegraphics[scale=.3]{q5/insep_100/acc.png}	
 		\caption{Prediction accuracy on test set for up to 500 epoches with small LI dataset}
 	\end{figure}
 
@@ -529,76 +411,76 @@ Here, the prediction accuracies show Adagrad consistently lagging behind its pee
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/insep_100/time.png}
+		\includegraphics[scale=.5]{q5/insep_100/time.png}	
 		\caption{Iterations to convergence with small LI dataset}
 	\end{figure}
-
+	
 The graph above shows a drastic change from that of the small LS dataset. Here, GD is by far the slowest to converge. Adagrad and SGD, though faster in comparison to GD, are stll slower than the other four methods. As previously mentioned, Adagrad's decreasing learning rate reduces speed of learning; here, SGD's unstable convergence means that it is slower to converge than SGDM, which is better able to handle this comparatively noisier dataset. As expected, RMSProp, Adadelta, and Adam are faster than Adagrad since their adjustments are built to prevent the loss of learning that Adagrad suffers.
-
+	
 \subsubsection{Large, linearly separable dataset}
-Here, we randomly generated 10,000 points in separate blobs, ensuring that they were linearly separable.
+Here, we randomly generated 10,000 points in separate blobs, ensuring that they were linearly separable. 
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/sep_10000/lines_n10000.png}
+		\includegraphics[scale=.5]{q5/sep_10000/lines_n10000.png}	
 		\caption{Decision boundaries after 1000 epoches with large LS dataset}
 	\end{figure}
 As with the small LS dataset, the graph shows that all methods were able to find a decision boundary that correctly classified all points. However, note here that Adagrad and GD are slightly apart from the others; this is because even with 1000 iterations, GD has still not adjusted enough to find the optimal boundary, and Adagrad's slow learning rate slows it from reaching the optimal weights.
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/sep_10000/loss_n10000.png}
+		\includegraphics[scale=.5]{q5/sep_10000/loss_n10000.png}	
 		\caption{Loss function of first 1000 epoches}
 	\end{figure}
 
 The conclusions from above are matched here. GD runs far more slowly than the others, since it must compute gradients for all 10,000 points before even making a single update. Meanhile, Adagrad shows fast learning initially, but this quickly slows and settles to a cost value slightly above that of the other methods. Meanwhile, the other methods -- which have updated much more frequently than GD -- almost instantaneously reach a plateau.
-
+	
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.3]{q5/sep_10000/acc.png}
+		\includegraphics[scale=.3]{q5/sep_10000/acc.png}	
 		\caption{Prediction accuracy on test set for up to 10 epoches}
 	\end{figure}
-
-Here, the results from the prediction accuracy match what we would expect given the loss function graph above. After just one run, all classifiers but GD perfectly classify the data. Meanwhile, GD slowly but steadily improves its prediction rate.
+	
+Here, the results from the prediction accuracy match what we would expect given the loss function graph above. After just one run, all classifiers but GD perfectly classify the data. Meanwhile, GD slowly but steadily improves its prediction rate. 
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/sep_10000/time.png}
+		\includegraphics[scale=.5]{q5/sep_10000/time.png}	
 		\caption{Iterations to convergence with large LS dataset}
 	\end{figure}
-
+	
 The results here match those of the small LS dataset. The GD takes the longest to converge by far, with Adagrad a second. Meanwhile, all other methods converge with far fewere iterations, with RMSProp, Adadelta, and Adagrad vastly improving on Adagrad's convergence speed.
 
 \subsubsection{Large, linearly inseparable dataset}
-Here, we randomly generated 10,000 points in separate blobs, ensuring that they were linearly inseparable.
+Here, we randomly generated 10,000 points in separate blobs, ensuring that they were linearly inseparable. 
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/insep_10000/lines.png}
+		\includegraphics[scale=.5]{q5/insep_10000/lines.png}	
 		\caption{Decision boundaries after 1000 epocheswith large L1 dataset}
 	\end{figure}
-
+	
 Here, we see that GD and Adagrad fail to produce a satisfactory decision boundary within 1000 epoches and are clearly misclassifying a large portion of the data in blue.
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/insep_10000/loss_n1000.png}
+		\includegraphics[scale=.5]{q5/insep_10000/loss_n1000.png}	
 		\caption{Loss function of first 1000 epoches}
 	\end{figure}
 The findings here corroborate with those above. GD has a loss function that is the slowest to decrease by far; by the end of the 1000 epoches it has still failed to reach a plateau. Meanwhile, Adagrad quickly leans, but reaches a plateau at a suboptimal cost and can no longer learn. RmsProp and Adadelta quickly learn, but this learning rate is slowed as the adaptive learning rates adjust. Meanwhile, SGD and SGDM are the fastest to converge, but also demonstrate a great deal of noise.
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/insep_10000/loss_n25.png}
+		\includegraphics[scale=.5]{q5/insep_10000/loss_n25.png}	
 		\caption{Loss function of first 25 epoches}
 	\end{figure}
 
 We look at the loss function in greater detail to point out that SGDM clearly improves upon SGD's convergence rate, thanks to the momentum factor that SGD lacks. In a linearly inseparable dataset like this one, the momentum prevents SGD from overshooting based off of outliers (e.g. a red point in an area that is clearly full of blue).
-
+	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=.3]{q5/insep_10000/acc_500.png}
+		\includegraphics[scale=.3]{q5/insep_10000/acc_500.png}	
 		\caption{Prediction accuracy on test set for up to 500 epoches}
 	\end{figure}
 
@@ -606,12 +488,19 @@ Here, the prediction accuracy shows GD predicting poorly; even at the end of 400
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[scale=.5]{q5/insep_10000/time.png}
+		\includegraphics[scale=.5]{q5/insep_10000/time.png}	
 		\caption{Iterations to convergence with large LI dataset}
 	\end{figure}
+	
+The results here match those from above; that is, GD is once again the slowest by far, with Adagrad as second slowest. The other methods converge extremely quickly in comparison.
+\end{document} 
 
 
 
+<<<<<<< HEAD
+	
+	
+=======
 \section*{Problem 6}
 	\subsection*{(ii)}
 	The Perceptron Algorithm performs differently under different splits of the dataset. From the plots, we choose
@@ -659,3 +548,4 @@ Here, the prediction accuracy shows GD predicting poorly; even at the end of 400
 
 
 \end{document}
+>>>>>>> e7be00f22f29eafa56ae8f6b192de2d2374ac0b4
