@@ -615,7 +615,7 @@ Here, the prediction accuracy shows GD predicting poorly; even at the end of 400
 
 
 \section*{Problem 6}
-\subsection*{(ii)}
+	\subsection*{(ii)}
 	The Perceptron Algorithm performs differently under different splits of the dataset. From the plots, we choose
 	the ration of training data to be 0.80, 0.75, and 0.85, for V0, V1, V2 respectively.
 	\begin{figure}[H]
@@ -623,17 +623,41 @@ Here, the prediction accuracy shows GD predicting poorly; even at the end of 400
 		\includegraphics[scale=0.6]{q6/img/splits_v1_smoothed.png}\\
 		\includegraphics[scale=0.6]{q6/img/splits_v2.png}
 	\end{figure}
-
+	As the number of iterations go up, we can see that V0 is the most stable among the three algorithms, and it has the highest accuracy.
+	All algorithms reach relative high level of accuracy after 200 iterations.
 	\begin{figure}[H]
-		\includegraphics[]{q6/img/iterations_v0.png}
-		\includegraphics[]{q6/img/iterations_v1.png}
-		\includegraphics[]{q6/img/iterations_v2.png}
+		\includegraphics[scale=0.6]{q6/img/iterations_v0.png}V0\\
+		\includegraphics[scale=0.6]{q6/img/iterations_v1.png}V1\\
+		\includegraphics[scale=0.6]{q6/img/iterations_v2.png}V2
+	\end{figure}
+	The learning curve of the three algorithms suggests that V0 is more stable after training with a large sample set. 
+	The performance of V0 and V2 is stable after around 300 occurrences of training data.
+	\begin{figure}[H]
+		\includegraphics[scale=0.6]{q6/img/learning_v0.png}\\
+		\includegraphics[scale=0.6]{q6/img/learning_v1.png}\\
+		\includegraphics[scale=0.6]{q6/img/learning_v2.png}
+	\end{figure}
+	In conclusion, V0 is the best algorithm for this problem because it demonstrates a more stable learning curve with relative high
+	accuracy, and the performance gradually increases with the number of iterations. 
+\subsection*{(iii)}
+	From the performance graphs, we can see the the Kernel Algorithm works better under a split ratio of 0.80, and
+	that after 100 iterations the algorithm could reach relatively high accuracy. By default, the graphs were generated using $p=2$, 
+	and a split ration of 0.8 with the maximum iteration number 200.
+	\begin{figure}[H]
+		\includegraphics[scale=0.5]{q6/img/splits_ker.png}
+		\includegraphics[scale=0.5]{q6/img/iterations_ker.png}
+	\end{figure}
+	The Kernel Perceptron has a very steep learning curve, since it is easier to separate the data points in higher dimensions, and 
+	the algorithm would learn the set of coefficients that could separate the data faster the the other perceptron algorithms.
+	\begin{figure}[H]
+		\includegraphics[scale=0.5]{q6/img/learning_ker.png}
+	\end{figure}
+	As we change the degree of polynomial, $p$, the accuracy of Kernel Perception decreases compared to smaller values
+	such as $p=2$, because of overfitting.
+	\begin{figure}[H]
+		\includegraphics[scale=0.5]{q6/img/degree_ker.png}
+		\includegraphics[scale=0.5]{q6/img/degree_ker_all.png}
 	\end{figure}
 
 
-
-
-\subsection*{(iii)}
-
->>>>>>> 85125a0ac6917eb94c0f5e32e59fe23aaddc7548
 \end{document}
