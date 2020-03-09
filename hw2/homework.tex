@@ -156,15 +156,32 @@
 	\end{proof}
 \subsection*{(iv)}
 	\begin{proof}
-		Let $PPV_a := \mathbb{P}_a[Y=1 | \hat{Y}=1]$. We have
+		Let $\text{PPV}_a := \mathbb{P}_a[Y=1 | \hat{Y}=1]$. We have
 		\begin{align*}
-			PPV_a = \frac{TPR p_a}{TPR p_a+FPR(1-p_a)}
+			\text{PPV}_a & = \mathbb{P}_a[Y=1 | \hat{Y}=1] \\
+			&= \frac{\mathbb{P}_a[\hat{Y}=1|Y=1] \mathbb{P}_a[Y=1] }
+			{\mathbb{P}_a[\hat{Y}=1] } \tag{Bayes Rule}\\
+			&= \frac{\mathbb{P}_a[\hat{Y}=1|Y=1] \mathbb{P}_a[Y=1] }
+			{\mathbb{P}_a[\hat{Y}=1|Y=1] \mathbb{P}_a[Y=1]+
+			\mathbb{P}_a[\hat{Y}=1|Y=0] \mathbb{P}_a[Y=0] }\\
+			&= \frac{ (1-\mathbb{P}_a[\hat{Y}=0|Y=1]) \mathbb{P}_a[Y=1] }
+			{ (1-\mathbb{P}_a[\hat{Y}=0|Y=1])  \mathbb{P}_a[Y=1]+
+			\mathbb{P}_a[\hat{Y}=1|Y=0] (1-\mathbb{P}_a[Y=1]) }\\
+			&= \frac{(1-\text{FNR}_a) p_a}{(1-\text{FNR}_a)  p_a+\text{FPR}_a(1-p_a)}
 		\end{align*}
-		Hence $PPV_0=PPV_1$ implies either $TPR=0$ or $FPR=0$. However
+		By Equalized Odds, we have $\text{FNR}_0=\text{FNR}_1$, and $\text{FPR}_0=\text{FPR}_1$.
+		By Positive Predictive Parity, $\text{PPV}_0=\text{PPV}_1$ which implies either $\text{FNR}_a=1$ 
+		or $\text{FPR}_a=0$. However considering Negative Predictive Parity,
 		\begin{align*}
-			NPV_a = \frac{(1-FPR) (1-p_a)}{(1-TPR) p_a+(1-FPR)(1-p_a)}
+			\text{NPV}_a &=  \mathbb{P}_a[Y=1 | \hat{Y}=0] \\
+			&= \frac{\mathbb{P}_a[\hat{Y}=0|Y=1] \mathbb{P}_a[Y=1] }
+			{\mathbb{P}_a[\hat{Y}=0] } \tag{Bayes Rule}\\
+			&= \frac{\mathbb{P}_a[\hat{Y}=0|Y=1] \mathbb{P}_a[Y=1] }
+			{\mathbb{P}_a[\hat{Y}=0|Y=1] \mathbb{P}_a[Y=1]+
+			\mathbb{P}_a[\hat{Y}=0|Y=0] \mathbb{P}_a[Y=0] }\\
+			&= \frac{\text{FNR}_a p_a}{\text{FNR}_a p_a+(1-\text{FPR}_a)(1-p_a)}
 		\end{align*}
-		in either case, $NPV_0\neq NPV_1$. Hence predictive value parity fails.
+		in either case, $\text{NPV}_0\neq \text{NPV}_1$. Hence predictive value parity fails.
 	\end{proof}
 
 \section*{Problem 4}
