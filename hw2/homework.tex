@@ -292,12 +292,15 @@ AdaDelta, like RMSProp, is a modification to AdaGrad meant to combat its chief d
 	RMS[\Delta \theta]_t &= \sqrt[•]{E[\Delta \theta^2]_t+\epsilon}\\
 	\theta_{t+1} &= \theta_t - \frac{RMS[\Delta \theta]_{t-1}}{RMS[g]_t} g_t\\
 \end{align*}
+<<<<<<< HEAD
 
 The reason why we take the 
+=======
+>>>>>>> e7be00f22f29eafa56ae8f6b192de2d2374ac0b4
 \begin{enumerate}
-	\item Advantages: No need to set default learning rate since it is no longer a component of the update rule; solves the monotonically decreasing learning rate problem presented by AdaGrad.
-	\item Disadvantages:
-	\item Best used for:
+	\item Advantages: No need to set default learning rate since it is no longer a component of the update rule; solves the monotonically decreasing learning rate problem presented by AdaGrad. Thus, unlike in AdaGrad, AdaDelta will continue to improve indefinitely.
+	\item Disadvantages: Moving averages are biased by initialization of decay parameters.
+	\item Best used for: AdaDelta is generally good with saddle points; because it is derived from AdaGrad, it's good with sparse data sets. 
 \end{enumerate}
 \subsubsection{Adaptive Moment Estimation}
 Adaptive Moment Estimation (ADAM), like AdaGrad, is a method which uses adaptive learning rates rather than a fixed one. Like Adadelta, ADAM maintains a exponentially decaying average of square gradients, but also adds an exponentially decaying average of past (unsquared) gradients. This acts in a similar fashion to momentum.
@@ -494,5 +497,55 @@ The results here match those from above; that is, GD is once again the slowest b
 
 
 
+<<<<<<< HEAD
 	
 	
+=======
+\section*{Problem 6}
+	\subsection*{(ii)}
+	The Perceptron Algorithm performs differently under different splits of the dataset. From the plots, we choose
+	the ration of training data to be 0.80, 0.75, and 0.85, for V0, V1, V2 respectively.
+	\begin{figure}[H]
+		\includegraphics[scale=0.6]{q6/img/splits_v0_smoothed.png}\\
+		\includegraphics[scale=0.6]{q6/img/splits_v1_smoothed.png}\\
+		\includegraphics[scale=0.6]{q6/img/splits_v2.png}
+	\end{figure}
+	As the number of iterations go up, we can see that V0 is the most stable among the three algorithms, and it has the highest accuracy.
+	All algorithms reach relative high level of accuracy after 200 iterations.
+	\begin{figure}[H]
+		\includegraphics[scale=0.6]{q6/img/iterations_v0.png}V0\\
+		\includegraphics[scale=0.6]{q6/img/iterations_v1.png}V1\\
+		\includegraphics[scale=0.6]{q6/img/iterations_v2.png}V2
+	\end{figure}
+	The learning curve of the three algorithms suggests that V0 is more stable after training with a large sample set. 
+	The performance of V0 and V2 is stable after around 300 occurrences of training data.
+	\begin{figure}[H]
+		\includegraphics[scale=0.6]{q6/img/learning_v0.png}\\
+		\includegraphics[scale=0.6]{q6/img/learning_v1.png}\\
+		\includegraphics[scale=0.6]{q6/img/learning_v2.png}
+	\end{figure}
+	In conclusion, V0 is the best algorithm for this problem because it demonstrates a more stable learning curve with relative high
+	accuracy, and the performance gradually increases with the number of iterations. 
+\subsection*{(iii)}
+	From the performance graphs, we can see the the Kernel Algorithm works better under a split ratio of 0.80, and
+	that after 100 iterations the algorithm could reach relatively high accuracy. By default, the graphs were generated using $p=2$, 
+	and a split ration of 0.8 with the maximum iteration number 200.
+	\begin{figure}[H]
+		\includegraphics[scale=0.5]{q6/img/splits_ker.png}
+		\includegraphics[scale=0.5]{q6/img/iterations_ker.png}
+	\end{figure}
+	The Kernel Perceptron has a very steep learning curve, since it is easier to separate the data points in higher dimensions, and 
+	the algorithm would learn the set of coefficients that could separate the data faster the the other perceptron algorithms.
+	\begin{figure}[H]
+		\includegraphics[scale=0.5]{q6/img/learning_ker.png}
+	\end{figure}
+	As we change the degree of polynomial, $p$, the accuracy of Kernel Perception decreases compared to smaller values
+	such as $p=2$, because of overfitting.
+	\begin{figure}[H]
+		\includegraphics[scale=0.5]{q6/img/degree_ker.png}
+		\includegraphics[scale=0.5]{q6/img/degree_ker_all.png}
+	\end{figure}
+
+
+\end{document}
+>>>>>>> e7be00f22f29eafa56ae8f6b192de2d2374ac0b4
