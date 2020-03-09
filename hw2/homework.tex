@@ -108,6 +108,127 @@
 		\end{align*}
 	\end{proof}
 
+section*{Problem 2}
+ \subsection*{(i)}
+ 	Suppose we have a perfect classifier such that $\hat{Y}=y$ whenever $Y=y$,
+ 	and that the distribution of $(X,A,Y)$ is symmetrical across the sensitive attribute $A$.
+ 	For example, let $(f(X),A,Y)\in \{(1,1,1),(1,0,1),(0,1,0),(0,0,0)\}$ with uniform distribution.
+ 	Thus we have
+ 	\begin{align*}
+ 		\mathbb{P}_0[\hat{Y}=\hat{y}] &= \frac{1}{2} = \mathbb{P}_1 [\hat{Y}=\hat{y}] \tag{DP}  \\
+ 		\mathbb{P}_0[\hat{Y}=1|Y=1] &= 1 = \mathbb{P}_1 [\hat{Y}=1|Y=1] \tag{True Positive EO} \\
+ 		\mathbb{P}_0[\hat{Y}=0|Y=0] &= 1 = \mathbb{P}_1 [\hat{Y}=0|Y=0] \tag{True Negative EO} \\
+ 		\mathbb{P}_0[Y=1 | \hat{Y}=1] &=1 = \mathbb{P}_1[Y=1 | \hat{Y}=1] \tag{Positive PP} \\
+ 		\mathbb{P}_0[Y=0 | \hat{Y}=0] &=1 = \mathbb{P}_1[Y=0 | \hat{Y}=0] \tag{Negative PP}
+ 	\end{align*}
+ \subsection*{(ii)}
+ 	\begin{proof}
+ 		Suppose both DP and PP are satisfied.
+ 		Then we have
+ 		\begin{align*}
+ 			\mathbb{P}_0[\hat{Y}=\hat{y}] &= \mathbb{P}_1 [\hat{Y}=\hat{y}] \tag{DP} \\
+ 			\mathbb{P}_0[Y=1 | \hat{Y}=1] &= \mathbb{P}_1[Y=1 | \hat{Y}=1] \tag{Positive PP} \\
+ 		\end{align*}
+ 		Since the random variable $(\hat{Y},A,Y)$ satisfy separation ($\hat{Y}\perp A|Y$), we have
+ 		\begin{align*}
+ 			\mathbb{P}_0[\hat{Y}=1|Y=1] = \mathbb{P}_1[\hat{Y}=1|Y=1]
+ 		\end{align*}
+ 		By Positive Predicative Parity, we can write
+ 		\begin{align*}
+ 			\mathbb{P}_0[Y=1 | \hat{Y}=1] &= \mathbb{P}_1[Y=1 | \hat{Y}=1] \\
+ 			\frac{\mathbb{P}_0[\hat{Y}=1|Y=1] \mathbb{P}_0[Y=1] }{\mathbb{P}_0[\hat{Y}=1] }
+ 			&= \frac{\mathbb{P}_1[\hat{Y}=1|Y=1] \mathbb{P}_1[Y=1] }{ \mathbb{P}_1[\hat{Y}=1] } \tag{Bayes Rule} \\
+ 			\mathbb{P}_0[\hat{Y}=1|Y=1] \mathbb{P}_0[Y=1] &= \mathbb{P}_1[\hat{Y}=1|Y=1] \mathbb{P}_1[Y=1] \tag{DP}\\
+ 			\mathbb{P}_0[Y=1] &= \mathbb{P}_1[Y=1] \tag{Separation Condition}
+ 		\end{align*}
+ 		However $A\perp Y$ contradicts the dependence condition.
+ 	\end{proof}
+ \subsection*{(iii)}
+ 	\begin{proof}
+ 		By Positive Equalized Odds,
+ 		\begin{align*}
+ 			\mathbb{P}_0[ \hat{Y}=1|Y=1] &= \mathbb{P}_1[\hat{Y}=1|Y=1] \\
+ 			\frac{\mathbb{P}_0[Y=1|\hat{Y}=1] \mathbb{P}_0[\hat{Y}=1] }{\mathbb{P}_0[{Y}=1] }
+ 			&= \frac{\mathbb{P}_1[Y=1|\hat{Y}=1] \mathbb{P}_1[\hat{Y}=1] }{ \mathbb{P}_1[{Y}=1] } \tag{Bayes Rule} \\
+ 			\frac{\mathbb{P}_0[Y=1|\hat{Y}=1]}{\mathbb{P}_0[{Y}=1] }
+ 			&= \frac{\mathbb{P}_1[Y=1|\hat{Y}=1]}{ \mathbb{P}_1[{Y}=1] } \tag{DP}\\
+ 			\mathbb{P}_0[Y=1] &= \mathbb{P}_1[Y=1] \tag{$\hat{Y}$ dependent on $Y$}
+ 		\end{align*}
+ 		However $A\perp Y$ contradicts the dependence condition.
+ 	\end{proof}
+ \subsection*{(iv)}
+ 	\begin{proof}
+ 		Let $\text{PPV}_a := \mathbb{P}_a[Y=1 | \hat{Y}=1]$. We have
+ 		\begin{align*}
+ 			\text{PPV}_a & = \mathbb{P}_a[Y=1 | \hat{Y}=1] \\
+ 			&= \frac{\mathbb{P}_a[\hat{Y}=1|Y=1] \mathbb{P}_a[Y=1] }
+ 			{\mathbb{P}_a[\hat{Y}=1] } \tag{Bayes Rule}\\
+ 			&= \frac{\mathbb{P}_a[\hat{Y}=1|Y=1] \mathbb{P}_a[Y=1] }
+ 			{\mathbb{P}_a[\hat{Y}=1|Y=1] \mathbb{P}_a[Y=1]+
+ 			\mathbb{P}_a[\hat{Y}=1|Y=0] \mathbb{P}_a[Y=0] }\\
+ 			&= \frac{ (1-\mathbb{P}_a[\hat{Y}=0|Y=1]) \mathbb{P}_a[Y=1] }
+ 			{ (1-\mathbb{P}_a[\hat{Y}=0|Y=1])  \mathbb{P}_a[Y=1]+
+ 			\mathbb{P}_a[\hat{Y}=1|Y=0] (1-\mathbb{P}_a[Y=1]) }\\
+ 			&= \frac{(1-\text{FNR}_a) p_a}{(1-\text{FNR}_a)  p_a+\text{FPR}_a(1-p_a)}
+ 		\end{align*}
+ 		By Equalized Odds, we have $\text{FNR}_0=\text{FNR}_1$, and $\text{FPR}_0=\text{FPR}_1$.
+ 		By Positive Predictive Parity, $\text{PPV}_0=\text{PPV}_1$ which implies either $\text{FNR}_a=1$
+ 		or $\text{FPR}_a=0$. However considering Negative Predictive Parity,
+ 		\begin{align*}
+ 			\text{NPV}_a &=  \mathbb{P}_a[Y=1 | \hat{Y}=0] \\
+ 			&= \frac{\mathbb{P}_a[\hat{Y}=0|Y=1] \mathbb{P}_a[Y=1] }
+ 			{\mathbb{P}_a[\hat{Y}=0] } \tag{Bayes Rule}\\
+ 			&= \frac{\mathbb{P}_a[\hat{Y}=0|Y=1] \mathbb{P}_a[Y=1] }
+ 			{\mathbb{P}_a[\hat{Y}=0|Y=1] \mathbb{P}_a[Y=1]+
+ 			\mathbb{P}_a[\hat{Y}=0|Y=0] \mathbb{P}_a[Y=0] }\\
+ 			&= \frac{\text{FNR}_a p_a}{\text{FNR}_a p_a+(1-\text{FPR}_a)(1-p_a)}
+ 		\end{align*}
+ 		in either case, $\text{NPV}_0\neq \text{NPV}_1$. Hence predictive value parity fails.
+ 	\end{proof}
+
+ \section*{Problem 3}
+ \subsection*{(i)}
+ 	\begin{proof}
+ 		$\phi_\sigma$ forms an uncountably infinite feature space corresponding in cardinality to $\mathbb{R}$.
+ 		By the density of rationals, $\forall x_i$ for $i \in [1,n] \exists r \in \mathbb{Q}$
+ 		s.t. $r$ is not in between $x_i$ and any other members of x. \\
+ 		$\therefore$ we can construct a neighborhood $N$ of radius $\sigma > 0$ about $x_i$
+ 		s.t. $\nexists x_j \in N$ where $j \in [1, n]$ and $j \neq i$. \\
+ 		By the conditions of the problem, this means that $\phi_\sigma (x) = 0 \forall x_i$ of our choice. \\
+ 		$\therefore$ we can select a $\sigma$ s.t. any binary labeling of the n points will have one label corresponding to zero values in $\phi_\sigma(x)$ and one label corresponding to nonzero values. We can draw a hyperplane dividing zero from nonzero values in the relevant dimensions (i.e. those corresponding to the $x_i$ of one of our binary labels). This hyperplane can have arbitrary values in the other dimensions. This hyperplane will separate the n points by binary label, thus construing a linear separation.
+ 	\end{proof}
+
+ \subsection*{(ii)}
+ 	\begin{proof}
+ 		By $x \mapsto 1[|\alpha-x| < \sigma]:\\
+ 		\forall \alpha$ s.t. $|\alpha - x| > \sigma $ or $|\alpha - x'| > \sigma$, $\phi_\sigma(x) \phi_\sigma(x') = 0$\\
+ 		Let $A$ be the minimum value of $\alpha$ where $|\alpha - x| < \sigma $ or $|\alpha - x'| < \sigma$\\
+ 		Let $B$ be the maximum value of $\alpha$ where $|\alpha - x| < \sigma $ or $|\alpha - x'| < \sigma$\\
+ 		The only nonzero values of the dot product occurs where $\alpha \in [A, B]$.  Thus, we only hve to integrate from A to B, because the rest of the values are zero.\\
+ 		$\phi_\sigma(x) \dot \phi_\sigma(x') = \int_{A}^{B} \phi_\sigma(x) \phi_\sigma(x') d\alpha$
+ 	\end{proof}
+
+ \subsection*{(iii)}
+ 	\subsection*{(a)}
+ 	\begin{proof}
+ 		$ || \phi(x) - c_+ || \leq || \phi(x) - c_-||$ \\
+ 		$ \iff  \sqrt{\phi \cdot \phi - 2c_+ \cdot \phi + c_+ \cdot c_+} \leq  \sqrt{\phi \cdot \phi - 2c_- \cdot \phi - c_+ \cdot c_-}$\\
+ 		$ \iff  - 2c_+ \cdot \phi + c_+ \cdot c_+ \leq  - 2c_- \cdot \phi + c_- \cdot c_-$ \\
+ 		$\iff - c_+ \cdot \phi + \frac{1}{2} c_+ \cdot c_+ \leq  - c_- \cdot \phi + \frac{1}{2} c_- \cdot c_- $ \\
+ 		$\iff  c_+ \cdot \phi - c_- \cdot \phi + \frac{1}{2} (-c_+ \cdot c_+  + c_- \cdot c_-) \geq 0$ \\
+ 		$\iff  (c_+ - c_-) \cdot \phi + \frac{1}{2} ( ||c_-||^2 - ||c_+ ||^2) \geq 0$ \\
+ 		$\iff  \langle w, \phi(x) \rangle + b \geq 0$ \\
+ 		$\therefore \langle w, \phi(x) \rangle + b$  is positive iff $h(x)  = 1$ and is negative iff $h(x) = -1$.\\
+ 		$h(x)  =$ sign$( \langle w, \phi(x) \rangle + b)$
+ 	\end{proof}
+
+ 	\subsection*{(b)}
+ 	$h(x) = 1$ iff $K(w, \phi(x)) \geq \frac{1}{2}(K(c_-, c_-), K(c_+, c_+))$\\
+ 	otherwise, $h(x) = -1$
+
+
+
+
 \section{Problem 4}
 \subsection{a}
 \begin{align*}
@@ -496,11 +617,6 @@ The results here match those from above; that is, GD is once again the slowest b
 \end{document} 
 
 
-
-<<<<<<< HEAD
-	
-	
-=======
 \section*{Problem 6}
 	\subsection*{(ii)}
 	The Perceptron Algorithm performs differently under different splits of the dataset. From the plots, we choose
@@ -548,4 +664,3 @@ The results here match those from above; that is, GD is once again the slowest b
 
 
 \end{document}
->>>>>>> e7be00f22f29eafa56ae8f6b192de2d2374ac0b4
